@@ -1,39 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 
-// FloatingImage now accepts duration and interval props
-const FloatingImage = ({ src, duration = 10, interval = 3000, ease = [0.42, 0, 0.58, 1] }) => {
+// Generate 20 unique parametric paths
+const getPath = (idx, t, width, height) => {
+  // Use Lissajous curves with different parameters for each image
+  const a = 1 + (idx % 3); // frequency x
+  const b = 2 + (idx % 4); // frequency y
+  const delta = (Math.PI / 10) * idx; // phase offset
+  const rx = width / 2.2 - 60 - idx * 2; // x amplitude
+  const ry = height / 2.2 - 60 - idx * 2; // y amplitude
+  const cx = width / 2;
+  const cy = height / 2;
+  // t in [0, 1]
+  const x = cx + rx * Math.sin(a * 2 * Math.PI * t + delta);
+  const y = cy + ry * Math.sin(b * 2 * Math.PI * t);
+  return { x, y };
+};
+
+const FloatingImage = ({ src, idx, duration = 24 }) => {
   const controls = useAnimation();
+  const tRef = useRef(Math.random()); // start at random phase
 
   useEffect(() => {
-    const moveRandom = () => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      let x, y;
-      let tries = 0;
-      do {
-        x = Math.random() * (window.innerWidth - 100);
-        y = Math.random() * (window.innerHeight - 100);
-        const dist = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-        // If too close to center, try again (max 10 tries)
-        if (dist > 200 || tries > 10) break;
-        tries++;
-      } while (true);
-
-      controls.start({
-        x,
-        y,
-        transition: {
-          duration: duration,
-          ease: ease,
-        },
-      });
+    let frame;
+    const animate = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      tRef.current += 1 / (duration * 60); // smooth step
+      if (tRef.current > 1) tRef.current -= 1;
+      const { x, y } = getPath(idx, tRef.current, width, height);
+      controls.set({ x, y });
+      frame = requestAnimationFrame(animate);
     };
-
-    moveRandom();
-    const timer = setInterval(moveRandom, interval);
-    return () => clearInterval(timer);
-  }, [controls, duration, interval]);
+    animate();
+    return () => cancelAnimationFrame(frame);
+  }, [controls, idx, duration]);
 
   return (
     <motion.img
@@ -41,15 +42,15 @@ const FloatingImage = ({ src, duration = 10, interval = 3000, ease = [0.42, 0, 0
       animate={controls}
       style={{
         position: "absolute",
-        width: "100px",
+        width: "12px",
         height: "auto",
-        pointerEvents: "none", // so it doesn't block clicks
+        pointerEvents: "none",
+        zIndex: 2,
       }}
     />
   );
 };
 
-// FloatingImages now expects images to be an array of objects: { src, duration, interval }
 const FloatingImages = ({ images }) => {
   return (
     <div style={{ position: "absolute", top: 0, left: 0, width: "100%", minHeight: "100vh", height: "100%", overflow: "hidden", zIndex: 1 }}>
@@ -57,9 +58,8 @@ const FloatingImages = ({ images }) => {
         <FloatingImage
           src={img.src}
           key={idx}
-          duration={img.duration}
-          interval={img.interval}
-          ease={img.ease}
+          idx={idx}
+          duration={img.duration || 24}
         />
       ))}
     </div>

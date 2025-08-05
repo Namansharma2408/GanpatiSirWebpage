@@ -1,7 +1,8 @@
 import './App.css'
 import LoadingScreen from './Views/LoadingScreen'
-import LandingPage from './Views/LandingPage'
+import AppRoutes from './routes/AppRoutes'
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -13,13 +14,15 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <LandingPage onLoaded={() => setLoading(false)} loading={loading} />
-      )}
-    </div>
+    <Router>
+      <div>
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <AppRoutes />
+        )}
+      </div>
+    </Router>
   );
 }
 
