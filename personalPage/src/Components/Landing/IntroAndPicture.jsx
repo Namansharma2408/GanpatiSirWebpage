@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 const CircularImageSection = () => {
     return (
         <div className="relative z-20 flex justify-center items-center" style={{ width: '320px', height: '320px' }}>
-            {/* Siri-like animated background layers */}
-            <div className="absolute w-80 h-80 rounded-full bg-gradient-to-br from-gray-200/30 via-slate-100/20 to-gray-300/25 backdrop-blur-sm border border-gray-200/30 shadow-lg animate-pulse" 
+            {/* Siri-like animated background layers with enhanced colors */}
+            <div className="absolute w-80 h-80 rounded-full bg-gradient-to-br from-purple-400/30 via-indigo-500/25 to-blue-400/20 backdrop-blur-sm border border-purple-200/40 shadow-lg animate-pulse" 
                  style={{
                      animationDuration: '3s', 
                      top: '50%', 
@@ -14,7 +14,7 @@ const CircularImageSection = () => {
                  }}>
             </div>
             
-            <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-100/15 via-indigo-50/20 to-slate-100/25 backdrop-blur-md border border-blue-100/20 shadow-md" 
+            <div className="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-300/25 via-indigo-400/30 to-purple-300/20 backdrop-blur-md border border-blue-200/35 shadow-md" 
                  style={{
                      top: '50%', 
                      left: '50%', 
@@ -23,7 +23,7 @@ const CircularImageSection = () => {
                  }}>
             </div>
             
-            <div className="absolute w-64 h-64 rounded-full bg-gradient-to-bl from-purple-50/20 via-blue-50/15 to-gray-100/20 backdrop-blur-lg border border-purple-100/25 shadow-sm" 
+            <div className="absolute w-64 h-64 rounded-full bg-gradient-to-bl from-purple-300/25 via-blue-400/20 to-indigo-300/25 backdrop-blur-lg border border-purple-200/30 shadow-sm" 
                  style={{
                      top: '50%', 
                      left: '50%', 
@@ -33,35 +33,35 @@ const CircularImageSection = () => {
             </div>
             
             {/* Main Image Container with enhanced glass effect */}
-            <div className="relative w-56 h-56 rounded-full overflow-hidden border-2 border-gray-200/40 shadow-2xl backdrop-blur-sm bg-gradient-to-br from-blue-50/20 to-purple-50/15">
+            <div className="relative w-56 h-56 rounded-full overflow-hidden border-2 border-purple-200/50 shadow-2xl backdrop-blur-sm bg-gradient-to-br from-blue-100/30 to-purple-100/25">
                 <img 
                     src="/ganpati.jpeg" 
                     alt="Profile" 
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                 />
                 {/* Subtle glass overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-500/5 via-transparent to-blue-100/8"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-500/8 via-transparent to-blue-200/12"></div>
                 
                 {/* Glass reflection effect */}
-                <div className="absolute top-4 left-4 w-16 h-16 bg-gradient-to-br from-white/20 to-blue-50/15 rounded-full blur-xl"></div>
+                <div className="absolute top-4 left-4 w-16 h-16 bg-gradient-to-br from-white/25 to-blue-200/20 rounded-full blur-xl"></div>
             </div>
             
-            {/* Subtle decorative elements */}
-            <div className="absolute w-3 h-3 bg-gradient-to-br from-gray-300/40 to-blue-100/30 rounded-full backdrop-blur-sm border border-gray-200/40" 
+            {/* Subtle decorative elements with enhanced colors */}
+            <div className="absolute w-3 h-3 bg-gradient-to-br from-purple-300/50 to-blue-200/40 rounded-full backdrop-blur-sm border border-purple-200/50" 
                  style={{
                      top: '15px', 
                      right: '15px',
                      animation: 'float1 6s ease-in-out infinite'
                  }}>
             </div>
-            <div className="absolute w-2 h-2 bg-gradient-to-tr from-blue-100/30 to-gray-200/25 rounded-full backdrop-blur-sm border border-blue-100/30" 
+            <div className="absolute w-2 h-2 bg-gradient-to-tr from-blue-300/40 to-indigo-200/35 rounded-full backdrop-blur-sm border border-blue-200/40" 
                  style={{
                      bottom: '10px', 
                      left: '10px',
                      animation: 'float2 5s ease-in-out infinite 1s'
                  }}>
             </div>
-            <div className="absolute w-2 h-2 bg-gradient-to-bl from-purple-100/25 to-gray-100/30 rounded-full backdrop-blur-sm border border-purple-100/30" 
+            <div className="absolute w-2 h-2 bg-gradient-to-bl from-purple-300/35 to-blue-200/40 rounded-full backdrop-blur-sm border border-purple-200/40" 
                  style={{
                      top: '50%', 
                      right: '5px',
@@ -127,7 +127,7 @@ const IntroAndPicture = () => {
                         
                         {/* Card Content */}
                         <div className="relative p-6 md:p-8 z-10">
-                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-purple-700/40 to-blue-700/40 bg-clip-text text-transparent text-center md:text-left">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6  text-center md:text-left bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
                                 DR GANAPATHY D
                             </h2>
                             <p className="text-base md:text-lg leading-relaxed text-gray-800 mb-4 font-medium text-center md:text-left">

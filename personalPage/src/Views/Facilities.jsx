@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
-
+import { Outlet } from 'react-router-dom';
 // Facility Card Component with glass morphism design
 const FacilityCard = ({ facility, index }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -123,8 +123,8 @@ const Facilities = () => {
       location: "Building A, Floor 3",
       status: "Available",
       icon: "🧪",
-      gradientFrom: "from-blue-500",
-      gradientTo: "to-purple-600",
+      gradientFrom: "from-blue-300",
+      gradientTo: "to-purple-400",
       image: "/chemistry1.png"
     },
     {
@@ -143,8 +143,8 @@ const Facilities = () => {
       location: "Building B, Floor 1",
       status: "Available",
       icon: "💻",
-      gradientFrom: "from-green-500",
-      gradientTo: "to-teal-600",
+      gradientFrom: "from-green-300",
+      gradientTo: "to-teal-400",
       image: "/chemistry2.png"
     },
     {
@@ -163,8 +163,8 @@ const Facilities = () => {
       location: "Building C, Floor 2",
       status: "Maintenance",
       icon: "🔬",
-      gradientFrom: "from-orange-500",
-      gradientTo: "to-red-600",
+      gradientFrom: "from-orange-300",
+      gradientTo: "to-red-400",
       image: "/chemistry3.png"
     },
     {
@@ -183,8 +183,8 @@ const Facilities = () => {
       location: "Building D, Floor 1",
       status: "Available",
       icon: "🏭",
-      gradientFrom: "from-indigo-500",
-      gradientTo: "to-blue-600",
+      gradientFrom: "from-indigo-300",
+      gradientTo: "to-blue-400",
       image: "/chemistry4.png"
     },
     {
@@ -203,8 +203,8 @@ const Facilities = () => {
       location: "Building E, Floor 2",
       status: "Available",
       icon: "🎯",
-      gradientFrom: "from-purple-500",
-      gradientTo: "to-pink-600",
+      gradientFrom: "from-purple-300",
+      gradientTo: "to-pink-400",
       image: "/chemistry5.png"
     },
     {
@@ -223,8 +223,8 @@ const Facilities = () => {
       location: "Building A, Floor 1",
       status: "Available",
       icon: "⚗️",
-      gradientFrom: "from-teal-500",
-      gradientTo: "to-green-600",
+      gradientFrom: "from-teal-300",
+      gradientTo: "to-green-400",
       image: "/chemistry6.png"
     }
   ];
@@ -238,16 +238,16 @@ const Facilities = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">
-              Research Facilities
-            </h1>
+            <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+          Research Facilities
+          </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Explore our world-class research facilities equipped with cutting-edge technology and instruments to support advanced scientific research and innovation.
             </p>
           </div>
 
           {/* Facilities Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             {facilities.map((facility, index) => (
               <FacilityCard 
                 key={facility.id} 
@@ -275,6 +275,7 @@ const Facilities = () => {
             </div>
           </div>
         </div>
+        <Outlet />
       </Layout>
     </>
   );
