@@ -135,21 +135,23 @@ const StudentCard = ({ member }) => {
 
           {/* Research Focus - Brief */}
           <div className="mb-4">
-            <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
-              {member.specialization.split('.')[0]}.
+            <p className="text-s text-gray-900 leading-relaxed line-clamp-2">
+              Research Area : {member.specialization.split('.')[0]}.
             </p>
           </div>
-
-          {/* Top Skills - Limited */}
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-1">
-              {member.skills.slice(0, 3).map((skill, idx) => (
-                <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                  {skill}
-                </span>
-              ))}
+          { member.role === "PhD" ?
+            <div className="mb-4">
+              <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+                BSc : {member.bsc}
+              </p>
+              <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
+                MSc : {member.msc}
+              </p>
             </div>
-          </div>
+            :
+            ""
+
+          }
 
           {/* Contact Links - Compact */}
           <div className="flex justify-center space-x-3 pt-3 border-t border-gray-200/50">
@@ -203,31 +205,48 @@ const Team = () => {
   const phdStudents = [
     {
       id: 2,
-      name: "Priya Sharma",
+      name: "Baldau Singh",
       position: "PhD Student",
       role: "PhD",
       department: "Chemistry Department",
-      specialization: "Computational Chemistry and Molecular Modeling. Working on quantum chemical calculations and drug-receptor interactions.",
-      skills: ["DFT Calculations", "Molecular Dynamics", "Python", "GAUSSIAN"],
-      image: "/ganpati.jpeg",
-      email: "priya.sharma@university.edu",
-      linkedin: "#",
+      specialization: "Photocatalytic Organic Synthesis,Total synthesis",
+      image: "/baldau.jpg",
+      email: "baldaus@iitbhilai.ac.in",
+      linkedin: "",
       gradientFrom: "from-green-500",
-      gradientTo: "to-teal-600"
+      gradientTo: "to-teal-600",
+      bsc: "Udai Pratap College, Varanasi, UP",
+      msc: "Udai Pratap College, Varanasi, UP",
     },
     {
       id: 3,
-      name: "Rahul Kumar",
+      name: "Neeraj Tiwari",
       position: "PhD Student",
       role: "PhD",
       department: "Chemistry Department",
-      specialization: "Synthetic Organic Chemistry. Developing new catalytic methods for sustainable chemical transformations.",
-      skills: ["Catalysis", "Green Chemistry", "NMR Spectroscopy", "Purification"],
-      image: "/ganpati.jpeg",
-      email: "rahul.kumar@university.edu",
-      linkedin: "#",
+      specialization: "Photocatalytic Organic Synthesis",
+      image: "/neeraj.jpg",
+      email: "neerajbr@iitbhilai.ac.in",
+      bsc: "Veer Narmad South  Gujarat University",
+      msc: "Sardar Patel University",
+      linkedin: "",
       gradientFrom: "from-blue-500",
       gradientTo: "to-indigo-600"
+    },
+    {
+      id: 3,
+      name: "Piyush Pandey",
+      position: "PhD Student",
+      role: "PhD",
+      department: "Chemistry Department",
+      specialization: "Electrochemical Organic Synthesis and Total Synthesis",
+      image: "/piyush.jpg",
+      email: "piyushp@iitbhilai.ac.in",
+      linkedin: "",
+      gradientFrom: "from-blue-500",
+      gradientTo: "to-indigo-600",
+      bsc: "Udai Pratap College, Varanasi, Uttar Pradesh",
+      msc: "Udai Pratap College, Varanasi, Uttar Pradesh",
     }
   ];
 
@@ -235,46 +254,31 @@ const Team = () => {
   const mscStudents = [
     {
       id: 4,
-      name: "Anita Patel",
+      name: "Nagarajan.S",
       position: "MSc Student",
       role: "MSc",
       department: "Chemistry Department",
-      specialization: "Analytical Chemistry and Environmental Analysis. Focused on developing sensors for environmental monitoring.",
-      skills: ["HPLC", "GC-MS", "Environmental Analysis", "Data Analysis"],
-      image: "/ganpati.jpeg",
-      email: "anita.patel@university.edu",
-      linkedin: "#",
+      specialization: "Electrochemical Organic Synthesis",
+      image: "/nagraj.jpg",
+      email: "nagarajanan@iitbhilai.ac.in",
+      linkedin: "",
       gradientFrom: "from-orange-500",
       gradientTo: "to-red-600"
     },
     {
       id: 5,
-      name: "Vikram Singh",
+      name: "Abhijit Pandey",
       position: "MSc Student",
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
-      skills: ["Nanomaterials", "XRD", "SEM", "Battery Technology"],
-      image: "/ganpati.jpeg",
-      email: "vikram.singh@university.edu",
-      linkedin: "#",
+      image: "/abhijit.jpg",
+      email: "abhijitpa@iitbhilai.ac.in",
+      linkedin: "",
       gradientFrom: "from-indigo-500",
       gradientTo: "to-purple-600"
     },
-    {
-      id: 6,
-      name: "Meera Reddy",
-      position: "MSc Student",
-      role: "MSc",
-      department: "Chemistry Department",
-      specialization: "Biochemistry and Protein Chemistry. Investigating enzyme mechanisms and protein-ligand interactions.",
-      skills: ["Protein Purification", "Enzyme Assays", "Crystallography", "Bioinformatics"],
-      image: "/ganpati.jpeg",
-      email: "meera.reddy@university.edu",
-      linkedin: "#",
-      gradientFrom: "from-pink-500",
-      gradientTo: "to-rose-600"
-    }
+    
   ];
 
   // Staff data (empty for now, ready for future additions)
@@ -286,7 +290,7 @@ const Team = () => {
         {/* Header Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
-          Our Research Team
+            Our Research Team
           </h1>
         </div>
 

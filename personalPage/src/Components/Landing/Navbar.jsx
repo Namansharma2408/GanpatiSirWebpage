@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <>
       {/* Mobile Logo Section - Glass Morphism Style */}
-      <div className="sm:hidden fixed top-6 left-6 z-[9999] flex items-center">
+      <div className="xl:hidden fixed top-6 left-6 z-[9999] flex items-center">
         <div className="relative group">
           {/* Background glow effect */}
           <div className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-indigo-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -52,7 +52,7 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Unified Navbar with Logo */}
-      <nav className="hidden sm:flex fixed top-6 left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg rounded-full z-[9999] w-[85vw] max-w-7xl">
+      <nav className="hidden xl:flex fixed top-6 left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg rounded-full z-[9999] w-[90vw] max-w-7xl">
         <div className="flex items-center justify-between px-8 py-3 w-full">
           {/* Logo Section */}
           <div className="flex items-center">
@@ -71,7 +71,7 @@ export default function Navbar() {
                 key={item.id}
                 to={item.path}
                 onClick={() => handleNavigation(item.path)}
-                className={`relative px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-sm font-medium border ${isActive(item.path)
+                className={`relative px-4 py-2 rounded-full transition-all duration-300 ease-in-out text-sm font-bold   border ${isActive(item.path)
                     ? 'bg-white/60 text-gray-800 shadow-lg backdrop-blur-sm border-white/60'
                     : 'text-gray-600 border-transparent hover:text-gray-800 hover:bg-white/20 hover:backdrop-blur-sm hover:border-white/30 hover:shadow-sm'
                   }`}
@@ -88,7 +88,7 @@ export default function Navbar() {
 
       {/* Mobile Hamburger Button - Glass Morphism Style */}
       <button
-        className="sm:hidden fixed top-6 right-6 z-[10000] p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
+        className="xl:hidden fixed top-6 right-6 z-[10000] p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
         onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label="Open navigation menu"
       >
@@ -98,7 +98,7 @@ export default function Navbar() {
       </button>
 
       {/* Mobile Sidebar - Glass Morphism Style */}
-      <div className={`sm:hidden fixed inset-0 z-[9999] transition-all duration-300 ${sidebarOpen ? 'bg-black/20 pointer-events-auto' : 'pointer-events-none bg-transparent'}`}
+      <div className={`xl:hidden fixed inset-0 z-[9999] transition-all duration-300 ${sidebarOpen ? 'bg-black/20 pointer-events-auto' : 'pointer-events-none bg-transparent'}`}
         style={{ backdropFilter: sidebarOpen ? 'blur(4px)' : 'none' }}
         onClick={() => setSidebarOpen(false)}
       >

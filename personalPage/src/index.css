@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+/* Custom animations for Siri-like effect */
+@keyframes pulse-slow {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% { 
+    transform: scale(1.05) rotate(180deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-medium {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.25;
+  }
+  50% { 
+    transform: scale(1.03) rotate(-120deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes pulse-fast {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
+  }
+  50% { 
+    transform: scale(1.02) rotate(90deg);
+    opacity: 0.3;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-medium {
+  animation: pulse-medium 3s ease-in-out infinite reverse;
+}
+
+.animate-pulse-fast {
+  animation: pulse-fast 2.5s ease-in-out infinite;
+}

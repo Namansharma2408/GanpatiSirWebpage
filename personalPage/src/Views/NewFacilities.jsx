@@ -21,10 +21,15 @@ const FacilityCard = ({ facility, index }) => {
       }`}></div>
       
       {/* Main card */}
-      <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 w-full max-w-md mx-auto" style={{ minHeight: '320px', height: 'auto' }}>
+      <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 w-full max-w-md mx-auto" style={{ minHeight: '420px', height: 'auto' }}>
         {/* Facility Image */}
         {facility.image && (
           <div className="relative h-48 overflow-hidden">
+            <img 
+              src={facility.image} 
+              alt={facility.name}
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            />
             {/* Image overlay with gradient */}
             <div className={`absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent`}></div>
             {/* Status badge on image */}
