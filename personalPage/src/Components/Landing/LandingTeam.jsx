@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { div } from 'framer-motion/client';
 
 gsap.registerPlugin(ScrollTrigger)
 const StudentCard = ({ member }) => {
@@ -50,20 +49,6 @@ const StudentCard = ({ member }) => {
                 </svg>
               </button>
             )}
-            {member.linkedin && (
-              <button className="p-2 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </button>
-            )}
-            {member.researchgate && (
-              <button className="p-2 rounded-full bg-green-100/60 hover:bg-green-200 text-green-600 transition-colors">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.563.754-.563 1.132 0 .377 0 .754.563 1.132.565.375 1.255.565 2.073.565.818 0 1.508-.19 2.073-.565.563-.378.563-.755.563-1.132 0-.378 0-.755-.563-1.132C21.094.19 20.404 0 19.586 0z" />
-                </svg>
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -76,28 +61,13 @@ const LandingTeam = () => {
 
   const arr = [
     {
-      id: 1,
-      name: "",
-      position: "",
-      role: "PhD",
-      department: "",
-      specialization: "",
-      image: "",
-      email: "",
-      linkedin: "",
-      gradientFrom: "",
-      gradientTo: "",
-      bsc: "",
-      msc: "",
-    },
-    {
       id: 2,
       name: "Baldau Singh",
       position: "PhD Student",
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis,Total synthesis",
-      image: "/baldau.jpg",
+      image: "/baldau.JPG",
       email: "baldaus@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-green-500",
@@ -112,7 +82,7 @@ const LandingTeam = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis",
-      image: "/neeraj.jpg",
+      image: "/neeraj.JPG",
       email: "neerajbr@iitbhilai.ac.in",
       bsc: "Veer Narmad South  Gujarat University",
       msc: "Sardar Patel University",
@@ -127,7 +97,7 @@ const LandingTeam = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis and Total Synthesis",
-      image: "/piyush.jpg",
+      image: "/piyush.JPG",
       email: "piyushp@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-blue-500",
@@ -142,7 +112,7 @@ const LandingTeam = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis",
-      image: "/nagraj.jpg",
+      image: "/nagarajan.JPG",
       email: "nagarajanan@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-orange-500",
@@ -155,7 +125,7 @@ const LandingTeam = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
-      image: "/abhijit.jpg",
+      image: "/abhijit.JPG",
       email: "abhijitpa@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-indigo-500",
@@ -171,21 +141,21 @@ const LandingTeam = () => {
     const setupAnimation = () => {
       // Filter out the empty entry (id: 1) for calculation
       const activeStudents = arr.filter(student => student.id !== 1)
-      
-      // Calculate total width for horizontal movement
+
+      // Calculate positions for right-to-left animation
       const cardWidth = 400 // Increased card width with spacing
       const containerWidth = container.offsetWidth
-      const centerOffset = (containerWidth / 2) - (160) // Center based on card width (320px / 2 = 160px)
-      const totalMove = cardWidth * (activeStudents.length - 1)
+      const rightOffset = containerWidth // Position first card at the absolute right edge
+      const totalMove = cardWidth * activeStudents.length
 
       // Kill existing ScrollTrigger
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
 
-      // Set initial position to center the first card
-      gsap.set(slider, { x: centerOffset })
+      // Set initial position to start from right edge
+      gsap.set(slider, { x: rightOffset })
 
       gsap.to(slider, {
-        x: centerOffset - totalMove, // Move from center to final position
+        x: rightOffset - totalMove, // Move from right edge to final position (leftward)
         ease: 'none',
         scrollTrigger: {
           trigger: container,
@@ -217,13 +187,13 @@ const LandingTeam = () => {
   return (
     <div className='relative'>
       {/* Sticky heading that becomes fixed when reaching navbar, but unsticks when hitting cards */}
-      <div className="sticky top-16 z-40  backdrop-blur-md  transition-all duration-300" 
-           style={{ 
-             position: 'sticky',
-             top: '4rem',
-             bottom: 'auto',
-             marginBottom: '-120px' // Negative margin to create unstick effect when cards approach
-           }}>
+      <div className="sticky top-16 z-40  backdrop-blur-md  transition-all duration-300"
+        style={{
+          position: 'sticky',
+          top: '4rem',
+          bottom: 'auto',
+
+        }}>
         <div className="container mx-auto px-4 py-6">
           <div className="text-center max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
@@ -241,7 +211,7 @@ const LandingTeam = () => {
 
       {/* Team cards section */}
       <div ref={containerRef} className='overflow-hidden w-full h-screen flex items-end justify-end'>
-        <div ref={sliderRef} className='flex items-center justify-center space-x-12 h-full'>
+        <div ref={sliderRef} className='flex items-end justify-end space-x-12 h-full'>
           {arr.map((student) =>
             student.id === 1 ? null : (
               <div key={student.id} className="flex items-center justify-center flex-shrink-0">

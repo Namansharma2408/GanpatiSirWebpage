@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import ResearchInterests from './ResearchInterests.jsx'
 import RecentPublication from './RecentPublication.jsx'
 import LandingTeam from './LandingTeam.jsx'
+import Facilities from './Facilities.jsx'
 import Footer from './Footer.jsx'
 const MainContentArea = () => {
   return (
@@ -32,8 +33,11 @@ const MainContentArea = () => {
         <section className="min-h-screen relative z-40">
           <LandingTeam />
         </section>
-        <section className="max-h-1/3">
-          <Footer />
+        <section className="min-h-[60vh] relative z-40">
+          <Facilities />
+        </section>
+        <section className="min-h-[20vh] relative z-40">
+          <Footer/>
         </section>
       </div>
     </div>

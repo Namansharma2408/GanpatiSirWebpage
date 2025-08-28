@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../Components/Layout';
+import { a } from 'framer-motion/client';
 
 // Team Member Card Component for Professor (Full Width)
 const ProfessorCard = ({ member }) => {
@@ -63,28 +64,14 @@ const ProfessorCard = ({ member }) => {
             {/* Contact Links */}
             <div className="flex space-x-4">
               {member.email && (
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 transition-colors">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
-                  <span className="text-sm font-medium">Email</span>
-                </button>
-              )}
-              {member.linkedin && (
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 transition-colors">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                  <span className="text-sm font-medium">LinkedIn</span>
-                </button>
-              )}
-              {member.researchgate && (
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-green-100 hover:bg-green-200 text-green-600 transition-colors">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.563.754-.563 1.132 0 .377 0 .754.563 1.132.565.375 1.255.565 2.073.565.818 0 1.508-.19 2.073-.565.563-.378.563-.755.563-1.132 0-.378 0-.755-.563-1.132C21.094.19 20.404 0 19.586 0z" />
-                  </svg>
-                  <span className="text-sm font-medium">ResearchGate</span>
-                </button>
+                <a href={`mailto:${member.email}`}>
+                  <button className="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 transition-colors">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                    </svg>
+                    <span className="text-sm font-medium">Email</span>
+                  </button>
+                </a>
               )}
             </div>
           </div>
@@ -116,7 +103,7 @@ const StudentCard = ({ member }) => {
           <img
             src={member.image}
             alt={member.name}
-            className="w-full object-cover transition-transform duration-500 hover:scale-110"
+            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
           />
           {/* Image overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
@@ -139,7 +126,7 @@ const StudentCard = ({ member }) => {
               Research Area : {member.specialization.split('.')[0]}.
             </p>
           </div>
-          { member.role === "PhD" ?
+          {member.role === "PhD" ?
             <div className="mb-4">
               <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
                 BSc : {member.bsc}
@@ -154,27 +141,15 @@ const StudentCard = ({ member }) => {
           }
 
           {/* Contact Links - Compact */}
-          <div className="flex justify-center space-x-3 pt-3 border-t border-gray-200/50">
+          <div className="flex justify-center space-x-3 pt-3 border-t border-gray-200/50" >
             {member.email && (
-              <button className="p-2 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                </svg>
-              </button>
-            )}
-            {member.linkedin && (
-              <button className="p-2 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </button>
-            )}
-            {member.researchgate && (
-              <button className="p-2 rounded-full bg-green-100/60 hover:bg-green-200 text-green-600 transition-colors">
-                <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.563.754-.563 1.132 0 .377 0 .754.563 1.132.565.375 1.255.565 2.073.565.818 0 1.508-.19 2.073-.565.563-.378.563-.755.563-1.132 0-.378 0-.755-.563-1.132C21.094.19 20.404 0 19.586 0z" />
-                </svg>
-              </button>
+              <a href={`mailto:${member.email}`}>
+                <button className="p-2 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
+                  <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                  </svg>
+                </button>
+              </a>
             )}
           </div>
         </div>
@@ -193,7 +168,7 @@ const Team = () => {
     department: "Chemistry Department",
     specialization: "Organic Chemistry, Medicinal Chemistry, and Drug Discovery. Leading groundbreaking research in developing novel synthetic methodologies and bioactive compounds. With over 15 years of experience, Dr. Ganapathy has published numerous papers in high-impact journals and has been instrumental in advancing chemical research in medicinal applications.",
     skills: ["Organic Synthesis", "Drug Discovery", "Spectroscopy", "Research Leadership", "Grant Writing", "Team Management"],
-    image: "/ganpati.jpeg",
+    image: "/ganpathi.JPG",
     email: "ganapathy@university.edu",
     linkedin: "#",
     researchgate: "#",
@@ -210,7 +185,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis,Total synthesis",
-      image: "/baldau.jpg",
+      image: "/baldau.JPG",
       email: "baldaus@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-green-500",
@@ -225,7 +200,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis",
-      image: "/neeraj.jpg",
+      image: "/neeraj.JPG",
       email: "neerajbr@iitbhilai.ac.in",
       bsc: "Veer Narmad South  Gujarat University",
       msc: "Sardar Patel University",
@@ -240,7 +215,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis and Total Synthesis",
-      image: "/piyush.jpg",
+      image: "/piyush.jpeg",
       email: "piyushp@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-blue-500",
@@ -259,7 +234,7 @@ const Team = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis",
-      image: "/nagraj.jpg",
+      image: "/nagarajan.JPG",
       email: "nagarajanan@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-orange-500",
@@ -272,26 +247,41 @@ const Team = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
-      image: "/abhijit.jpg",
+      image: "/abhijit.JPG",
       email: "abhijitpa@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-indigo-500",
       gradientTo: "to-purple-600"
     },
-    
+
   ];
 
   // Staff data (empty for now, ready for future additions)
   const staff = [];
 
   return (
-    <Layout className="bg-gray-300">
-      <div className="max-w-7xl mx-auto">
+    <Layout>
+      <div className="max-w-full h-1/2 mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
-            Our Research Team
-          </h1>
+        <div className="relative text-center mb-16 overflow-hidden rounded-3xl h-[50vh] min-h-[400px]">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('/completeTeam.JPG')" }}
+          ></div>
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+          {/* Content */}
+          <div className="relative z-10 flex items-center justify-center h-full ">
+            <div>
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                Our Research Team
+              </h1>
+              <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
+                Meet the dedicated researchers driving innovation in organic chemistry and drug discovery
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Principal Investigator Section - Full Width Featured Card */}
@@ -328,33 +318,6 @@ const Team = () => {
             ))}
           </div>
         </div>
-
-        {/* Staff Section - Empty for now */}
-        <div className="mb-20">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-800 mb-3">Research Staff</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full"></div>
-          </div>
-          {staff.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-              {staff.map((staffMember) => (
-                <StudentCard key={staffMember.id} member={staffMember} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-white/60 backdrop-blur-lg rounded-2xl border border-white/30">
-              <div className="text-gray-400 mb-4">
-                <svg className="w-20 h-20 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-gray-600 mb-3">Research Staff Coming Soon</h3>
-              <p className="text-gray-500 max-w-md mx-auto">We are expanding our team with experienced research staff. Check back for updates on new team members joining our research group.</p>
-            </div>
-          )}
-        </div>
-
-        {/* Join Team Section */}
         <div className="text-center bg-white/60 backdrop-blur-lg rounded-2xl p-8 border border-white/30">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
             Join Our Research Team

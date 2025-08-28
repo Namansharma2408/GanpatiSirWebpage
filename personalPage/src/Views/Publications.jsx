@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
-
+import { link } from 'framer-motion/client';
+import { Link } from 'react-router-dom';
 // Academic Publication Card Component - Traditional Design
 const PublicationCard = ({ publication, index }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,46 +15,46 @@ const PublicationCard = ({ publication, index }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Main card with clean academic design */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
-        {/* Publication Header */}
-        <div className="bg-blue-50 border-b border-blue-100 p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                <span className="text-blue-600 text-sm">📄</span>
+      <a href={publication.link}>
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+          {/* Publication Header */}
+          <div className="bg-blue-50 border-b border-blue-100 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                  <span className="text-blue-600 text-sm">📄</span>
+                </div>
+              </div>
+              <div className="flex-1">
+                <p className="text-blue-600 font-medium text-sm">{publication.journal} {publication.year}</p>
+                {publication.volume && (
+                  <p className="text-blue-500 text-xs">{publication.volume}, {publication.pages}</p>
+                )}
+              </div>
+              <div className="text-right">
+                {publication.impactFactor && (
+                  <span className="text-xs text-gray-600">IF: {publication.impactFactor}</span>
+                )}
               </div>
             </div>
-            <div className="flex-1">
-              <p className="text-blue-600 font-medium text-sm">{publication.journal} {publication.year}</p>
-              {publication.volume && (
-                <p className="text-blue-500 text-xs">{publication.volume}, {publication.pages}</p>
-              )}
-            </div>
-            <div className="text-right">
-              {publication.impactFactor && (
-                <span className="text-xs text-gray-600">IF: {publication.impactFactor}</span>
-              )}
-            </div>
           </div>
-        </div>
 
-        {/* Main Content Area */}
-        <div className="p-6 flex">
-          <div className="flex w-full" style={{ minHeight: '180px' }}>
-            {/* Left 75%: Main content at top, image below */}
-            <div className="flex flex-col w-3/4 pr-4">
-              {/* Main content at top left */}
-              <div>
-                <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
+          {/* Main Content Area */}
+          <div className="p-6">
+            {/* Mobile Layout: Content at top, then both images stacked below */}
+            <div className="block md:hidden">
+              {/* Main content */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-blue-800 leading-tight mb-3">
                   {publication.title}
                 </h3>
                 {/* Authors */}
-                <div className="mb-3">
+                <div className="mb-4">
                   <p className="text-gray-700 text-sm">
                     {publication.authors.map((author, idx) => (
                       <span key={idx}>
                         <span className={author.isCorresponding ? 'font-bold' : ''}>
-                          {author.name} {author.isCorresponding ? '*': '' }
+                          {author.name} {author.isCorresponding ? '*' : ''}
                         </span>
                         {idx < publication.authors.length - 1 && ', '}
                       </span>
@@ -61,30 +62,78 @@ const PublicationCard = ({ publication, index }) => {
                   </p>
                 </div>
               </div>
-              {/* Image below main content, 75% width */}
-              <div className="w-full flex-1 flex items-end">
-                <div className="w-full h-fit bg-gray-100 rounded border ">
+
+              {/* Images stacked vertically in mobile */}
+              <div className="space-y-4">
+                {/* Main image */}
+                <div className="w-full h-fit bg-gray-100 rounded border">
                   <img
                     src={publication.image}
                     alt={publication.title}
-                    className="w-full h-full object-cover"
+                    className="w-full  object-cover"
+                  />
+                </div>
+                {/* Research image below */}
+                <div className="w-full h-fit  flex justify-center align-middle ">
+                  <img
+                    src={publication.researchImage}
+                    alt={publication.title}
+                    className="w-1/2 h-fit  border object-cover"
                   />
                 </div>
               </div>
             </div>
-            {/* Right 25%: Image at rightmost corner, full height */}
-            <div className="w-1/4 flex items-center">
-              <div className="w-fit h-80 bg-gray-100 rounded border">
-                <img
-                  src={publication.researchImage}
-                  alt={publication.title}
-                  className="w-full h-full object-cover"
-                />
+
+            {/* Desktop Layout: Original side-by-side layout */}
+            <div className="hidden md:flex">
+              <div className="flex w-full" style={{ minHeight: '180px' }}>
+                {/* Left 75%: Main content at top, image below */}
+                <div className="flex flex-col w-3/4 pr-4">
+                  {/* Main content at top left */}
+                  <div>
+                    <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
+                      {publication.title}
+                    </h3>
+                    {/* Authors */}
+                    <div className="mb-3">
+                      <p className="text-gray-700 text-sm">
+                        {publication.authors.map((author, idx) => (
+                          <span key={idx}>
+                            <span className={author.isCorresponding ? 'font-bold' : ''}>
+                              {author.name} {author.isCorresponding ? '*' : ''}
+                            </span>
+                            {idx < publication.authors.length - 1 && ', '}
+                          </span>
+                        ))}
+                      </p>
+                    </div>
+                  </div>
+                  {/* Image below main content, 75% width */}
+                  <div className="w-full flex-1 flex items-end">
+                    <div className="w-full h-fit bg-gray-100 rounded border ">
+                      <img
+                        src={publication.image}
+                        alt={publication.title}
+                        className="w-full h-auto object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+                {/* Right 25%: Image at rightmost corner, full height */}
+                <div className="w-1/4 flex items-center">
+                  <div className="w-fit h-80 bg-gray-100 rounded border">
+                    <img
+                      src={publication.researchImage}
+                      alt={publication.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };
@@ -117,7 +166,8 @@ const Publications = () => {
       supplementaryUrl: "#",
       image: "public/journal1.jpg",
       researchImage: "public/publication1.jpg",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      link: 'http://seamless.iitbhilai.ac.in'
     },
     {
       id: 2,
@@ -144,7 +194,8 @@ const Publications = () => {
       supplementaryUrl: "#",
       image: "/public/journal2.jpg",
       researchImage: "/public/publication2.jpg",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
     },
     {
       id: 3,
@@ -170,7 +221,8 @@ const Publications = () => {
       supplementaryUrl: "#",
       image: "/chemistry3.png",
       researchImage: "/chemistry1.png",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
     },
     {
       id: 4,
@@ -194,7 +246,8 @@ const Publications = () => {
       pdfUrl: "#",
       image: "/chemistry4.png",
       researchImage: "/chemistry2.png",
-      statusColor: "bg-green-100 text-green-700"
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
     },
     {
       id: 5,
@@ -218,7 +271,8 @@ const Publications = () => {
       doi: "https://doi.org/10.1038/s42256-2024-xxxxx",
       image: "/chemistry5.png",
       researchImage: "/chemistry3.png",
-      statusColor: "bg-yellow-100 text-yellow-700"
+      statusColor: "bg-yellow-100 text-yellow-700",
+      link: ''
     }
   ];
 
@@ -227,7 +281,7 @@ const Publications = () => {
       <div className="fixed inset-0 z-0 pointer-events-none bg-gray-300">
         <GlassEffectBg />
       </div>
-      <Layout className="relative z-10">
+      <Layout>
         <div className="max-w-6xl mx-auto px-4 py-12">
           {/* Header Section - Academic Style */}
           <div className="text-center mb-12">

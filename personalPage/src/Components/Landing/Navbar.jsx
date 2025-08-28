@@ -3,11 +3,11 @@ import React, { useState } from "react";
 
 const navItems = [
   { id: 'home', label: 'Home', path: '/' },
-  { id: 'about', label: 'About', path: '/about' },
   { id: 'team', label: 'Team', path: '/team' },
   { id: 'research', label: 'Research', path: '/research' },
   { id: 'publications', label: 'Publications', path: '/publications' },
   { id: 'facilities', label: 'Facilities', path: '/facilities' },
+  { id: 'gallery', label: 'Gallery', path: '/gallery' },
   { id: 'contact', label: 'Contact', path: '/contact' }
 ];
 
@@ -41,7 +41,7 @@ export default function Navbar() {
                 <h1 className="text-lg font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
                   Ganpati Research Group
                 </h1>
-                <p className="text-xs text-gray-600 font-medium">Chemistry Department</p>
+                <p className="text-xs text-gray-600 font-medium">Department of Chemistry</p>
               </div>
             </div>
             
@@ -60,7 +60,7 @@ export default function Navbar() {
               <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
                 Ganpati Research Group
               </h1>
-              <p className="text-sm text-gray-600 font-medium">Chemistry Department</p>
+              <p className="text-sm text-gray-600 font-medium">Department  of Chemistry</p>
             </div>
           </div>
           

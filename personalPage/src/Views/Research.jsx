@@ -3,7 +3,7 @@ import Layout from '../Components/Layout';
 
 const Research = () => {
   return (
-    <Layout className="bg-gray-300">
+    <Layout >
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
           Research Areas
