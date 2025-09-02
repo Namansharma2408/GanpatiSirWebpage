@@ -52,7 +52,7 @@ export default function Navbar() {
       </div>
 
       {/* Desktop Unified Navbar with Logo */}
-      <nav className="hidden xl:flex fixed top-6 left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg rounded-full z-[9999] w-[90vw] max-w-7xl">
+      <nav className="hidden xl:flex fixed top-6 left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/50 border border-white/20 shadow-lg rounded-full z-[9999] w-[90vw] max-w-7xl">
         <div className="flex items-center justify-between px-8 py-3 w-full">
           {/* Logo Section */}
           <div className="flex items-center">
@@ -103,7 +103,7 @@ export default function Navbar() {
         onClick={() => setSidebarOpen(false)}
       >
         <aside
-          className={`absolute top-0 right-0 h-full w-72 backdrop-blur-xl bg-white/10 border-l border-white/20 shadow-2xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`absolute top-0 right-0 h-full w-72 backdrop-blur-xl bg-white/50 border-l border-white/20 shadow-2xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-6 py-6 border-b border-white/20">

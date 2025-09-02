@@ -256,21 +256,20 @@ const Facilities = () => {
 
   return (
     <>
-      <div className="fixed inset-0 z-0 pointer-events-none bg-gray-300">
+      <div className="fixed inset-0 z-0 pointer-events-none bg-slate-200">
         <GlassEffectBg />
       </div>
       <Layout>
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
-          Research Facilities
-          </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <div className="text-center mb-12 z-20 relative">
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+              Research Facilities
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
               Explore our world-class research facilities equipped with cutting-edge technology and instruments to support advanced scientific research and innovation.
             </p>
           </div>
-
           {/* Facilities Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             {facilities.map((facility, index) => (
@@ -280,24 +279,6 @@ const Facilities = () => {
                 index={index}
               />
             ))}
-          </div>
-
-          {/* Contact Section */}
-          <div className="text-center bg-white/60 backdrop-blur-lg rounded-2xl p-8 border border-white/30">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              Need Access to Our Facilities?
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Contact our facility manager to schedule visits, book equipment, or discuss collaboration opportunities.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
-                Book Facility
-              </button>
-              <button className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
-                Schedule Tour
-              </button>
-            </div>
           </div>
         </div>
         <Outlet />

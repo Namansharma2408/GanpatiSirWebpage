@@ -197,98 +197,23 @@ const Publications = () => {
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
-    {
-      id: 3,
-      title: "Computational Design of Efficient Catalysts for CO2 Reduction Reactions",
-      journal: "Angewandte Chemie International Edition",
-      year: 2024,
-      volume: "62",
-      pages: "e202315678",
-      type: "Communication",
-      status: "Published",
-      impactFactor: "16.823",
-      citations: 89,
-      authors: [
-        { name: "Dr. Ganapathy D", isCorresponding: true },
-        { name: "Lisa Zhang", isCorresponding: false },
-        { name: "David Brown", isCorresponding: false },
-        { name: "Prof. Robert Smith", isCorresponding: true }
-      ],
-      abstract: "Through advanced computational methodologies and machine learning approaches, we have designed a new class of single-atom catalysts for efficient CO2 reduction reactions. Our theoretical framework combines density functional theory calculations with high-throughput screening to identify optimal catalyst compositions.",
-      keywords: ["CO2 Reduction", "Computational Chemistry", "DFT", "Single-atom Catalysts", "Machine Learning"],
-      doi: "https://doi.org/10.1002/anie.202315678",
-      pdfUrl: "#",
-      supplementaryUrl: "#",
-      image: "/chemistry3.png",
-      researchImage: "/chemistry1.png",
-      statusColor: "bg-green-100 text-green-700",
-      link: ''
-    },
-    {
-      id: 4,
-      title: "Biocompatible Nanocarriers for Targeted Drug Delivery: A Multidisciplinary Approach",
-      journal: "ACS Nano",
-      year: 2024,
-      volume: "17",
-      pages: "12456-12471",
-      type: "Research Article",
-      status: "Published",
-      impactFactor: "17.1",
-      citations: 45,
-      authors: [
-        { name: "Dr. Ganapathy D", isCorresponding: true },
-        { name: "Emily Rodriguez", isCorresponding: false },
-        { name: "James Wilson", isCorresponding: false }
-      ],
-      abstract: "We report the development of innovative biocompatible nanocarriers for targeted drug delivery applications. The nanocarriers are based on biodegradable polymers functionalized with targeting ligands for specific cell recognition.",
-      keywords: ["Drug Delivery", "Nanocarriers", "Biocompatibility", "Cancer Therapy", "Nanomedicine"],
-      doi: "https://doi.org/10.1021/acsnano.3c12345",
-      pdfUrl: "#",
-      image: "/chemistry4.png",
-      researchImage: "/chemistry2.png",
-      statusColor: "bg-green-100 text-green-700",
-      link: ''
-    },
-    {
-      id: 5,
-      title: "Machine Learning Approaches for Predicting Molecular Properties in Drug Discovery",
-      journal: "Nature Machine Intelligence",
-      year: 2024,
-      volume: "6",
-      pages: "456-468",
-      type: "Review Article",
-      status: "In Press",
-      impactFactor: "25.898",
-      citations: 12,
-      authors: [
-        { name: "Dr. Ganapathy D", isCorresponding: true },
-        { name: "Alex Kumar", isCorresponding: false },
-        { name: "Maria Gonzalez", isCorresponding: false },
-        { name: "Prof. Jennifer Lee", isCorresponding: false }
-      ],
-      abstract: "This comprehensive review examines the latest machine learning methodologies for predicting molecular properties in drug discovery pipelines. We analyze various deep learning architectures including graph neural networks and transformers.",
-      keywords: ["Machine Learning", "Drug Discovery", "ADMET", "Graph Neural Networks", "AI"],
-      doi: "https://doi.org/10.1038/s42256-2024-xxxxx",
-      image: "/chemistry5.png",
-      researchImage: "/chemistry3.png",
-      statusColor: "bg-yellow-100 text-yellow-700",
-      link: ''
-    }
+    
   ];
 
   return (
     <>
-      <div className="fixed inset-0 z-0 pointer-events-none bg-gray-300">
+      <div className="fixed inset-0 z-0 pointer-events-none bg-slate-200">
         <GlassEffectBg />
       </div>
       <Layout>
         <div className="max-w-6xl mx-auto px-4 py-12">
+          
           {/* Header Section - Academic Style */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+          <div className="text-center mb-12 z-20 relative ">
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
               Publications
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
               Research contributions to the scientific community in organic synthesis, computational chemistry, and materials science.
             </p>
           </div>

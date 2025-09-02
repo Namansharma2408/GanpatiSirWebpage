@@ -12,77 +12,79 @@ const PublicationCard = ({ publication, index }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Main card with clean academic design */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
-        {/* Publication Header */}
-        <div className="bg-blue-50 border-b border-blue-100 p-4">
-          <div className="flex items-center gap-3">
-            <div className="flex-shrink-0">
-              <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                <span className="text-blue-600 text-sm">📄</span>
-              </div>
-            </div>
-            <div className="flex-1">
-              <p className="text-blue-600 font-medium text-sm">{publication.journal} {publication.year}</p>
-              {publication.volume && (
-                <p className="text-blue-500 text-xs">{publication.volume}, {publication.pages}</p>
-              )}
-            </div>
-            <div className="text-right">
-              {publication.impactFactor && (
-                <span className="text-xs text-gray-600">IF: {publication.impactFactor}</span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Main Content Area */}
-        <div className="p-6 flex">
-          <div className="flex w-full" style={{ minHeight: '180px' }}>
-            {/* Left 75%: Main content at top, image below */}
-            <div className="flex flex-col w-3/4 pr-4">
-              {/* Main content at top left */}
-              <div>
-                <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
-                  {publication.title}
-                </h3>
-                {/* Authors */}
-                <div className="mb-3">
-                  <p className="text-gray-700 text-sm">
-                    {publication.authors.map((author, idx) => (
-                      <span key={idx}>
-                        <span className={author.isCorresponding ? 'font-bold' : ''}>
-                          {author.name} {author.isCorresponding ? '*' : ''}
-                        </span>
-                        {idx < publication.authors.length - 1 && ', '}
-                      </span>
-                    ))}
-                  </p>
+      <a href={publication.link}>
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+          {/* Publication Header */}
+          <div className="bg-blue-50 border-b border-blue-100 p-4">
+            <div className="flex items-center gap-3">
+              <div className="flex-shrink-0">
+                <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
+                  <span className="text-blue-600 text-sm">📄</span>
                 </div>
               </div>
-              {/* Image below main content, 75% width */}
-              <div className="w-full flex-1 flex items-end">
-                <div className="w-full h-fit bg-gray-100 rounded border">
+              <div className="flex-1">
+                <p className="text-blue-600 font-medium text-sm">{publication.journal} {publication.year}</p>
+                {publication.volume && (
+                  <p className="text-blue-500 text-xs">{publication.volume}, {publication.pages}</p>
+                )}
+              </div>
+              <div className="text-right">
+                {publication.impactFactor && (
+                  <span className="text-xs text-gray-600">IF: {publication.impactFactor}</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="p-6 flex">
+            <div className="flex w-full" style={{ minHeight: '180px' }}>
+              {/* Left 75%: Main content at top, image below */}
+              <div className="flex flex-col w-3/4 pr-4">
+                {/* Main content at top left */}
+                <div>
+                  <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
+                    {publication.title}
+                  </h3>
+                  {/* Authors */}
+                  <div className="mb-3">
+                    <p className="text-gray-700 text-sm">
+                      {publication.authors.map((author, idx) => (
+                        <span key={idx}>
+                          <span className={author.isCorresponding ? 'font-bold' : ''}>
+                            {author.name} {author.isCorresponding ? '*' : ''}
+                          </span>
+                          {idx < publication.authors.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+                {/* Image below main content, 75% width */}
+                <div className="w-full flex-1 flex items-end">
+                  <div className="w-full h-fit bg-gray-100 rounded border">
+                    <img
+                      src={publication.image}
+                      alt={publication.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Right 25%: Image at rightmost corner, full height */}
+              <div className="w-1/4 flex items-center">
+                <div className="w-fit h-80 bg-gray-100 rounded border">
                   <img
-                    src={publication.image}
+                    src={publication.researchImage}
                     alt={publication.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
               </div>
             </div>
-            {/* Right 25%: Image at rightmost corner, full height */}
-            <div className="w-1/4 flex items-center">
-              <div className="w-fit h-80 bg-gray-100 rounded border">
-                <img
-                  src={publication.researchImage}
-                  alt={publication.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   );
 };
@@ -95,7 +97,7 @@ const RecentPublication = () => {
     {
       id: 1,
       title: "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
-      journal: "Eur. J. Org. Chem.",
+      journal: "Eur. J. Org. Chem. , ",
       year: 2025,
       volume: "28",
       pages: "15432-15441",
@@ -110,14 +112,20 @@ const RecentPublication = () => {
         { name: "Piyush Pandey", isCorresponding: false },
         { name: "Dhandapani Ganapathy", isCorresponding: true }
       ],
-      image: "/chemistry1.png",
-      researchImage: "/chemistry2.png",
-      statusColor: "bg-green-100 text-green-700"
+      abstract: "In this comprehensive study, we present groundbreaking synthetic methodologies toward the aphidicolin family of diterpenoid natural products. Our research demonstrates the development of highly efficient strategies for the construction of complex polycyclic frameworks. These novel approaches exhibit unprecedented selectivity and efficiency in key bond formation reactions under mild conditions.",
+      keywords: ["Natural Products", "Total Synthesis", "Diterpenoids", "Aphidicolin", "Organic Chemistry"],
+      doi: "e202400996",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "public/journal1.jpg",
+      researchImage: "public/publication1.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: 'http://seamless.iitbhilai.ac.in'
     },
     {
       id: 2,
       title: "Insights into Lead-Free Bismuth-Based Halide Perovskites Toward Alcohol Oxidation Under Blue LED Illumination",
-      journal: "ACS Catalysis",
+      journal: "PNAS",
       year: 2025,
       volume: "122",
       pages: "e2425438122",
@@ -132,58 +140,23 @@ const RecentPublication = () => {
         { name: "Dhandapani Ganapathy", isCorresponding: true },
         { name: "Satyajit Gupta", isCorresponding: true }
       ],
-      image: "/chemistry3.png",
-      researchImage: "/chemistry4.png",
-      statusColor: "bg-green-100 text-green-700"
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://doi.org/10.1073/pnas.2425438122",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal2.jpg",
+      researchImage: "/public/publication2.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
     },
-    {
-      id: 3,
-      title: "Computational Design of Efficient Catalysts for CO2 Reduction Reactions",
-      journal: "Angewandte Chemie International Edition",
-      year: 2024,
-      volume: "62",
-      pages: "e202315678",
-      type: "Communication",
-      status: "Published",
-      impactFactor: "16.823",
-      citations: 89,
-      authors: [
-        { name: "Dr. Ganapathy D", isCorresponding: true },
-        { name: "Lisa Zhang", isCorresponding: false },
-        { name: "David Brown", isCorresponding: false },
-        { name: "Prof. Robert Smith", isCorresponding: true }
-      ],
-      image: "/chemistry5.png",
-      researchImage: "/chemistry6.png",
-      statusColor: "bg-green-100 text-green-700"
-    },
-    {
-      id: 4,
-      title: "Machine Learning Approaches for Predicting Molecular Properties in Drug Discovery",
-      journal: "Nature Machine Intelligence",
-      year: 2024,
-      volume: "6",
-      pages: "456-468",
-      type: "Review Article",
-      status: "In Press",
-      impactFactor: "25.898",
-      citations: 12,
-      authors: [
-        { name: "Dr. Ganapathy D", isCorresponding: true },
-        { name: "Alex Kumar", isCorresponding: false },
-        { name: "Maria Gonzalez", isCorresponding: false },
-        { name: "Prof. Jennifer Lee", isCorresponding: false }
-      ],
-      image: "/chemistry7.png",
-      researchImage: "/chemistry1.png",
-      statusColor: "bg-yellow-100 text-yellow-700"
-    }
+
   ];
 
   // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         prevIndex === publications.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000); // Change slide every 3 seconds
@@ -205,16 +178,16 @@ const RecentPublication = () => {
 
       {/* Sliding Publications Container */}
       <div className="w-full max-w-6xl overflow-hidden">
-        <div 
+        <div
           className="flex transition-transform duration-700 ease-in-out"
-          style={{ 
+          style={{
             transform: `translateX(-${currentIndex * 100}%)` // Move by 100% of container width
           }}
         >
           {publications.map((publication, index) => (
-            <PublicationCard 
+            <PublicationCard
               key={publication.id}
-              publication={publication} 
+              publication={publication}
               index={index}
             />
           ))}
@@ -227,11 +200,10 @@ const RecentPublication = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentIndex 
-                ? 'bg-blue-600 scale-125' 
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                ? 'bg-blue-600 scale-125'
                 : 'bg-gray-300 hover:bg-gray-400'
-            }`}
+              }`}
           />
         ))}
       </div>
