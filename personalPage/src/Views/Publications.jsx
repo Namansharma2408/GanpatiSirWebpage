@@ -11,13 +11,15 @@ const PublicationCard = ({ publication, index }) => {
     <div
       className={`relative transition-all duration-200 ${isHovered ? 'shadow-lg' : 'shadow-md'
         }`}
+      style={{ fontFamily: 'Georgia, serif' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Main card with clean academic design */}
       <a href={publication.link}>
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+        <div className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-200">
           {/* Publication Header */}
+          <style>{`.georgia-font * { font-family: Georgia, serif !important; }`}</style>
           <div className="bg-blue-50 border-b border-blue-100 p-4">
             <div className="flex items-center gap-3">
               <div className="flex-shrink-0">
@@ -26,15 +28,9 @@ const PublicationCard = ({ publication, index }) => {
                 </div>
               </div>
               <div className="flex-1">
-                <p className="text-blue-600 font-medium text-sm">{publication.journal} {publication.year}</p>
-                {publication.volume && (
-                  <p className="text-blue-500 text-xs">{publication.volume}, {publication.pages}</p>
-                )}
+                <p className="text-blue-600 font-medium text-lg">{publication.journal} </p>
               </div>
               <div className="text-right">
-                {publication.impactFactor && (
-                  <span className="text-xs text-gray-600">IF: {publication.impactFactor}</span>
-                )}
               </div>
             </div>
           </div>
@@ -42,11 +38,17 @@ const PublicationCard = ({ publication, index }) => {
           {/* Main Content Area */}
           <div className="p-6">
             {/* Mobile Layout: Content at top, then both images stacked below */}
-            <div className="block md:hidden">
+            <div className="block md:hidden georgia-font">
               {/* Main content */}
               <div className="mb-6">
                 <h3 className="text-xl font-semibold text-blue-800 leading-tight mb-3">
-                  {publication.title}
+                  {index === 0 ? (
+                    <>
+                      {index + 1}. <a href="https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996" target="_blank" rel="noopener noreferrer" className="underline text-blue-900 hover:text-blue-700">{publication.title}</a>
+                    </>
+                  ) : (
+                    <>{index + 1}. {publication.title}</>
+                  )}
                 </h3>
                 {/* Authors */}
                 <div className="mb-4">
@@ -66,13 +68,12 @@ const PublicationCard = ({ publication, index }) => {
               {/* Images stacked vertically in mobile */}
               <div className="space-y-4">
                 {/* Main image */}
-                <div className="w-full h-fit bg-gray-100 rounded border">
-                  <img
-                    src={publication.image}
-                    alt={publication.title}
-                    className="w-full  object-cover"
-                  />
-                </div>
+                <img
+                  src={publication.image}
+                  alt={publication.title}
+                  className="w-full object-cover"
+                  style={publication.image === '/public/journal2.jpg' ? { height: '120px' } : {}}
+                />
                 {/* Research image below */}
                 <div className="w-full h-fit  flex justify-center align-middle ">
                   <img
@@ -86,13 +87,19 @@ const PublicationCard = ({ publication, index }) => {
 
             {/* Desktop Layout: Original side-by-side layout */}
             <div className="hidden md:flex">
-              <div className="flex w-full" style={{ minHeight: '180px' }}>
+              <div className="flex w-full georgia-font" style={{ minHeight: '180px' }}>
                 {/* Left 75%: Main content at top, image below */}
                 <div className="flex flex-col w-3/4 pr-4">
                   {/* Main content at top left */}
                   <div>
                     <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
-                      {publication.title}
+                      {index === 0 ? (
+                        <>
+                          {index + 1}. <a href="https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996" target="_blank" rel="noopener noreferrer" className="underline text-blue-900 hover:text-blue-700">{publication.title}</a>
+                        </>
+                      ) : (
+                        <>{index + 1}. {publication.title}</>
+                      )}
                     </h3>
                     {/* Authors */}
                     <div className="mb-3">
@@ -110,13 +117,11 @@ const PublicationCard = ({ publication, index }) => {
                   </div>
                   {/* Image below main content, 75% width */}
                   <div className="w-full flex-1 flex items-end">
-                    <div className="w-full h-fit bg-gray-100 rounded border ">
-                      <img
-                        src={publication.image}
-                        alt={publication.title}
-                        className="w-full h-auto object-contain"
-                      />
-                    </div>
+                    <img
+                      src={publication.image}
+                      alt={publication.title}
+                      className="w-full h-auto object-contain"
+                    />
                   </div>
                 </div>
                 {/* Right 25%: Image at rightmost corner, full height */}
@@ -144,7 +149,7 @@ const Publications = () => {
     {
       id: 1,
       title: "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
-      journal: "Eur. J. Org. Chem. , ",
+      journal: "Eur. J. Org. Chem. 2025, 28, 15432-15441. ",
       year: 2025,
       volume: "28",
       pages: "15432-15441",
@@ -167,12 +172,12 @@ const Publications = () => {
       image: "public/journal1.jpg",
       researchImage: "public/publication1.jpg",
       statusColor: "bg-green-100 text-green-700",
-      link: 'http://seamless.iitbhilai.ac.in'
+      link: 'https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996'
     },
     {
       id: 2,
       title: "Insights into Lead-Free Bismuth-Based Halide Perovskites Toward Alcohol Oxidation Under Blue LED Illumination",
-      journal: "PNAS",
+      journal: "ACS Applied Materials & Interfaces, 2025, 122, e2425438122",
       year: 2025,
       volume: "122",
       pages: "e2425438122",
@@ -197,7 +202,207 @@ const Publications = () => {
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
-    
+      {
+      id: 3,
+      title: "Enantioselective Total Synthesis of the Fungal Metabolite Blennolide D and the Enantiomers of Blennolide E and F",
+      journal: "Org. Lett.2018, 20, 2186-2189",
+      year: 2018,
+      volume: "20",
+      pages: "2186-2189",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Soundararasu Senthilkumar", isCorresponding: false },
+        { name: "Guillermo Valdomir", isCorresponding: false },
+        { name: "Dhandapani Ganapathy", isCorresponding: false },
+        { name: "Yun Zhang", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://pubs.acs.org/doi/10.1021/acs.orglett.8b00487",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal3.jpg",
+      researchImage: "/public/publication3.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 4,
+      title: "Enantioselective Total Synthesis of Blennolide H and Phomopsis-H76 A and Determination of Their Structure",
+      journal: "Chem. Eur. J.2018, 24, 8760-8763",
+      year: 2018,
+      volume: "24",
+      pages: "8760-8763",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Guillermo Valdomir", isCorresponding: false },
+        { name: "Soundararasu Senthilkumar", isCorresponding: false },
+        { name: "Dhandapani Ganapathy", isCorresponding: false },
+        { name: "Yun Zhang", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal4.jpg",
+      researchImage: "/public/publication4.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 5,
+      title: "Enantioselective Total Synthesis of Chromanone Lactone Homoand Heterodimers",
+      journal: "Chem. Eur. J. 2018, 13, 1888-1891.",
+      year: 2018,
+      volume: "13",
+      pages: "1888-18891",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Guillermo Valdomir", isCorresponding: false },
+        { name: "Soundararasu Senthilkumar", isCorresponding: false },
+        { name: "Dhandapani Ganapathy", isCorresponding: false },
+        { name: "Yun Zhang", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal5.jpg",
+      researchImage: "/public/publication5.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 6,
+      title: "Enantioselective Total Synthesis and Structure Confirmation of the Natural Dimeric Tetrahydroxanthenone Dicerandrol C",
+      journal: "Chem. Eur. J. 2017, 23, 2299-2302.",
+      year: 2017,
+      volume: "23",
+      pages: "2299-2302",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Dhandapani Ganapathy", isCorresponding: false },
+        { name: "Johannes R. Reiner", isCorresponding: false },
+        { name: "Guillermo Valdomir", isCorresponding: false },
+        { name: "Soundararasu Senthilkumar", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal5.jpg",
+      researchImage: "/public/publication5.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 7,
+      title: "Formal Synthesis of (–)-Siccanin Using an Enantioselective Domino Wacker/Carbonylation/Methoxylation Reaction",
+      journal: "Synlett, 2016, (27(01), 96-100",
+      year: 2016,
+      volume: "27(01)",
+      pages: "96-100",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Lutz F. Tietze", isCorresponding: true },
+        { name: "Stefan Jackenkroll", isCorresponding: false },
+        { name: "Dhandapani Ganapathy", isCorresponding: false },
+        { name: "Johannes R. Reiner", isCorresponding: false }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal7.jpg",
+      researchImage: "/public/publication7.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 8,
+      title: "Enantioselective Total Synthesis of Secalonic Acid E",
+      journal: "Chem. Eur. J. 2015, 21, 16807-16810",
+      year: 2015,
+      volume: "21",
+      pages: "16807-16810",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Dhandapani Ganapathy", isCorresponding: true },
+        { name: "Johannes R. Reiner", isCorresponding: false },
+        { name: "Lorenz E. Löffler", isCorresponding: false },
+        { name: "Ling Ma", isCorresponding: false },
+        { name: "Boopathy Gnanaprakasam", isCorresponding: false },
+        { name: "Benedikt Niepötter", isCorresponding: false },
+        { name: "Ingo Koehne", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal7.jpg",
+      researchImage: "/public/publication7.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 8,
+      title: "Enantioselective Total Synthesis of Secalonic Acid E",
+      journal: "Chem. Eur. J. 2015, 21, 16807-16810",
+      year: 2015,
+      volume: "21",
+      pages: "16807-16810",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Dhandapani Ganapathy", isCorresponding: true },
+        { name: "Johannes R. Reiner", isCorresponding: false },
+        { name: "Lorenz E. Löffler", isCorresponding: false },
+        { name: "Ling Ma", isCorresponding: false },
+        { name: "Boopathy Gnanaprakasam", isCorresponding: false },
+        { name: "Benedikt Niepötter", isCorresponding: false },
+        { name: "Ingo Koehne", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal8.jpg",
+      researchImage: "/public/publication8.jpg",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
   ];
 
   return (
@@ -206,10 +411,10 @@ const Publications = () => {
         <GlassEffectBg />
       </div>
       <Layout>
-        <div className="max-w-6xl mx-auto px-4 py-12">
+        <div className="max-w-6xl mx-auto px-4 py-12 relative z-10">
           
           {/* Header Section - Academic Style */}
-          <div className="text-center mb-12 z-20 relative ">
+          <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
               Publications
             </h1>
@@ -260,3 +465,5 @@ const Publications = () => {
 };
 
 export default Publications;
+
+
