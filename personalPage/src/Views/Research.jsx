@@ -17,10 +17,7 @@ const Research = () => {
               <h3 className="text-xl font-semibold mb-3">Organic Chemistry</h3>
               <p className="text-gray-600">Advanced synthesis and molecular design for pharmaceutical applications.</p>
             </div>
-            <div className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-white/30">
-              <h3 className="text-xl font-semibold mb-3">Materials Science</h3>
-              <p className="text-gray-600">Development of novel materials with unique properties and applications.</p>
-            </div>
+            
             <div className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-white/30">
               <h3 className="text-xl font-semibold mb-3">Catalysis</h3>
               <p className="text-gray-600">Design and optimization of catalytic processes for sustainable chemistry.</p>

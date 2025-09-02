@@ -9,7 +9,7 @@ const Facilities = () => {
                     All Facilities
                 </h2>
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-                    Explore our state-of-the-art facilities and resources available for research and collaboration.
+                    Explore our state-of-the-art facilities at IIT Bhilai and resources for research and collaboration.
                 </p>
             </div>
             {/* Facilities Card */}

@@ -26,7 +26,7 @@ const ResearchInterests = () => {
         <div className='w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50'>
             {/* Header Section */}
             <div className="text-center mb-16 max-w-4xl">
-                <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
+                <h2 className="text-4xl md:text-5xl font-bold italic mb-6  bg-orange-700 bg-clip-text text-transparent">
                     Research Interests
                 </h2>
                 <p className="text-lg md:text-xl text-gray-700 leading-relaxed">

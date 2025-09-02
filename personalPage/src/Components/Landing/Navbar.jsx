@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <>
       {/* Mobile Logo Section - Glass Morphism Style */}
-      <div className="xl:hidden fixed top-6 left-6 z-[9999] flex items-center">
+      <div className="xl:hidden fixed  left-6 z-[9999] flex items-center">
         <div className="relative group">
           {/* Background glow effect */}
           <div className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-indigo-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
@@ -39,26 +39,26 @@ export default function Navbar() {
               {/* Logo Text */}
               <div>
                 <h1 className="text-lg font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
-                  Ganpati Research Group
+                  Ganpathy Research Group
                 </h1>
                 <p className="text-xs text-gray-600 font-medium">Department of Chemistry</p>
               </div>
             </div>
             
             {/* Subtle inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5 rounded-2xl pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-white/5 via-transparent to-white/5  pointer-events-none"></div>
           </div>
         </div>
       </div>
 
       {/* Desktop Unified Navbar with Logo */}
-      <nav className="hidden xl:flex fixed top-6 left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg rounded-full z-[9999] w-[90vw] max-w-7xl">
+      <nav className="hidden xl:flex fixed left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg z-[9999] w-[100vw]">
         <div className="flex items-center justify-between px-8 py-3 w-full">
           {/* Logo Section */}
           <div className="flex items-center">
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
-                Ganpati Research Group
+                Ganpathy Research Group
               </h1>
               <p className="text-sm text-gray-600 font-medium">Department  of Chemistry</p>
             </div>
