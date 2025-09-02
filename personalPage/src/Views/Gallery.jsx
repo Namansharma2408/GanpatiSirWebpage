@@ -71,12 +71,19 @@ const Gallery = () => {
 
   return (
     <>
-      <div className="fixed inset-0 z-0 pointer-events-none bg-gray-300">
+      <div className="fixed inset-0 z-0 pointer-events-none bg-slate-200">
         <GlassEffectBg />
       </div>
       <Layout>
         <div className="max-w-7xl mx-auto px-4 py-8">
-          
+          <div className="text-center mb-12 z-20 relative">
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+              Publications
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
+              Research contributions to the scientific community in organic synthesis, computational chemistry, and materials science.
+            </p>
+          </div>
           {/* Category Filter */}
           {galleryImages.length > 0 && (
             <div className="flex flex-wrap justify-center gap-3 mb-12">

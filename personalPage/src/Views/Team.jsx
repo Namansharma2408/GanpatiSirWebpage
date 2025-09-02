@@ -261,12 +261,12 @@ const Team = () => {
 
   return (
     <Layout>
-      <div className="max-w-full h-1/2 mx-auto">
+      <div className="max-w-full h-1/2 mx-auto bg-slate-200">
         {/* Header Section */}
         <div className="relative text-center mb-16 overflow-hidden rounded-3xl h-[50vh] min-h-[400px]">
           {/* Background Image */}
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full"
             style={{ backgroundImage: "url('/completeTeam.JPG')" }}
           ></div>
           {/* Overlay for better text readability */}
@@ -316,22 +316,6 @@ const Team = () => {
             {mscStudents.map((student) => (
               <StudentCard key={student.id} member={student} />
             ))}
-          </div>
-        </div>
-        <div className="text-center bg-white/60 backdrop-blur-lg rounded-2xl p-8 border border-white/30">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            Join Our Research Team
-          </h2>
-          <p className="text-gray-600 mb-6">
-            We're always looking for passionate researchers to join our team. Explore opportunities for PhD and MSc positions.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
-              View Open Positions
-            </button>
-            <button className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-purple-500 hover:text-purple-600 transition-all duration-300">
-              Contact Us
-            </button>
           </div>
         </div>
       </div>

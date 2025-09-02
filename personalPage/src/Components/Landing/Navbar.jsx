@@ -103,7 +103,7 @@ export default function Navbar() {
         onClick={() => setSidebarOpen(false)}
       >
         <aside
-          className={`absolute top-0 right-0 h-full w-72 backdrop-blur-xl bg-white/10 border-l border-white/20 shadow-2xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          className={`absolute top-0 right-0 h-full w-72 backdrop-blur-xl bg-white/50 border-l border-white/20 shadow-2xl transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-6 py-6 border-b border-white/20">
