@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // Same PublicationCard component from Publications page
 const PublicationCard = ({ publication, index }) => {
@@ -63,10 +65,13 @@ const PublicationCard = ({ publication, index }) => {
                 {/* Image below main content, 75% width */}
                 <div className="w-full flex-1 flex items-end">
                   <div className="w-full h-fit bg-gray-100 rounded border">
-                    <img
+                    <LazyLoadImage
                       src={publication.image}
                       alt={publication.title}
+                      effect="blur"
                       className="w-full h-full object-cover"
+                      width="100%"
+                      height="auto"
                     />
                   </div>
                 </div>
@@ -74,10 +79,13 @@ const PublicationCard = ({ publication, index }) => {
               {/* Right 25%: Image at rightmost corner, full height */}
               <div className="w-1/4 flex items-center">
                 <div className="w-fit h-80 bg-gray-100 rounded border">
-                  <img
+                  <LazyLoadImage
                     src={publication.researchImage}
                     alt={publication.title}
+                    effect="blur"
                     className="w-full h-full object-cover"
+                    width="100%"
+                    height="320"
                   />
                 </div>
               </div>

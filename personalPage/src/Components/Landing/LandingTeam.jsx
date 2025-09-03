@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -20,11 +22,14 @@ const StudentCard = ({ member }) => {
       {/* Main card */}
       <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 w-80">
         {/* Profile Image */}
-        <div className="relative h-60 overflow-hidden">
-          <img
+        <div className="relative h-60 overflow-hidden flex items-center justify-center">
+          <LazyLoadImage
             src={member.image}
             alt={member.name}
+            effect="blur"
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            width="320"
+            height="240"
           />
           {/* Image overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>

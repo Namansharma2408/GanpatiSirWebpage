@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
 import { Outlet, Link } from 'react-router-dom';
@@ -63,10 +65,13 @@ const FacilityCard = ({ facility, index }) => {
           {/* Facility Image - moved below features */}
           {facility.image && (
             <div className="relative h-48 overflow-hidden rounded-xl mb-4">
-              <img 
+              <LazyLoadImage 
                 src={facility.image} 
                 alt={facility.name}
+                effect="blur"
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                width="100%"
+                height="192"
               />
               {/* Image overlay with gradient */}
               <div className={`absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent`}></div>

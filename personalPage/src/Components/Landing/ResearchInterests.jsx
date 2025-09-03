@@ -1,4 +1,6 @@
 import React from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ResearchInterests = () => {
     const researchAreas = [
@@ -45,9 +47,13 @@ const ResearchInterests = () => {
                         <div className="relative backdrop-blur-xl border bg-white border-white/40 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                             {/* Image Section */}
                             <div className="relative h-64 overflow-hidden">
-                                <img
+                                <LazyLoadImage
                                     src={area.image}
+                                    alt={area.title}
+                                    effect="blur"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    width="100%"
+                                    height="256"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                             </div>

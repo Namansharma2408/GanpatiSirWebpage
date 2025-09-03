@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
 import { link } from 'framer-motion/client';
@@ -68,18 +70,23 @@ const PublicationCard = ({ publication, index }) => {
               {/* Images stacked vertically in mobile */}
               <div className="space-y-4">
                 {/* Main image */}
-                <img
+                <LazyLoadImage
                   src={publication.image}
                   alt={publication.title}
-                  className="w-full object-cover"
-                  style={publication.image === '/public/journal2.webp' ? { height: '120px' } : {}}
+                  effect="blur"
+                  className="w-full h-auto object-cover rounded"
+                  width="100%"
+                  height="auto"
                 />
                 {/* Research image below */}
-                <div className="w-full h-fit  flex justify-center align-middle ">
-                  <img
+                <div className="w-full h-fit flex justify-center align-middle">
+                  <LazyLoadImage
                     src={publication.researchImage}
                     alt={publication.title}
-                    className="w-1/2 h-fit  border object-cover"
+                    effect="blur"
+                    className="w-full max-w-xs h-auto object-cover rounded border"
+                    width="100%"
+                    height="auto"
                   />
                 </div>
               </div>
@@ -116,21 +123,27 @@ const PublicationCard = ({ publication, index }) => {
                     </div>
                   </div>
                   {/* Image below main content, 75% width */}
-                  <div className="w-full flex-1 flex items-end">
-                    <img
+                  <div className="w-full flex-1 flex items-end mt-4">
+                    <LazyLoadImage
                       src={publication.image}
                       alt={publication.title}
-                      className="w-full h-auto object-contain"
+                      effect="blur"
+                      className="w-full h-auto object-contain rounded border"
+                      width="100%"
+                      height="auto"
                     />
                   </div>
                 </div>
                 {/* Right 25%: Image at rightmost corner, full height */}
-                <div className="w-1/4 flex items-center">
-                  <div className="w-fit h-80 bg-gray-100 rounded border">
-                    <img
+                <div className="w-1/4 flex items-center justify-center">
+                  <div className="w-full max-w-xs bg-gray-100 rounded border p-2">
+                    <LazyLoadImage
                       src={publication.researchImage}
                       alt={publication.title}
-                      className="w-full h-full object-cover"
+                      effect="blur"
+                      className="w-full h-auto object-contain rounded"
+                      width="100%"
+                      height="auto"
                     />
                   </div>
                 </div>
@@ -171,8 +184,8 @@ const Publications = () => {
       doi: "e202400996",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "public/journal1.webp",
-      researchImage: "public/publication1.webp",
+      image: "/journal1.webp",
+      researchImage: "/publication1.webp",
       statusColor: "bg-green-100 text-green-700",
       link: 'https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996'
     },
@@ -228,7 +241,7 @@ const Publications = () => {
       pdfUrl: "#",
       supplementaryUrl: "#",
       image: "/public/journal3.webp",
-      researchImage: "/public/publication3.webp",
+      researchImage: "/publication3.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -256,7 +269,7 @@ const Publications = () => {
       pdfUrl: "#",
       supplementaryUrl: "#",
       image: "/public/journal4.webp",
-      researchImage: "/public/publication4.webp",
+      researchImage: "/publication4.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -284,7 +297,7 @@ const Publications = () => {
       pdfUrl: "#",
       supplementaryUrl: "#",
       image: "/public/journal5.webp",
-      researchImage: "publication5.webp",
+      researchImage: "/publication5.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -339,38 +352,7 @@ const Publications = () => {
       pdfUrl: "#",
       supplementaryUrl: "#",
       image: "/public/journal7.webp",
-      researchImage: "/public/publication7.webp",
-      statusColor: "bg-green-100 text-green-700",
-      link: ''
-    },
-    {
-      id: 8,
-      title: "Enantioselective Total Synthesis of Secalonic Acid E",
-      journal: "Chem. Eur. J. 2015, 21, 16807-16810",
-      year: 2015,
-      volume: "21",
-      pages: "16807-16810",
-      type: "Communication",
-      status: "Published",
-      impactFactor: "11.205",
-      citations: 67,
-      authors: [
-        { name: "Dhandapani Ganapathy", isCorresponding: true },
-        { name: "Johannes R. Reiner", isCorresponding: false },
-        { name: "Lorenz E. Löffler", isCorresponding: false },
-        { name: "Ling Ma", isCorresponding: false },
-        { name: "Boopathy Gnanaprakasam", isCorresponding: false },
-        { name: "Benedikt Niepötter", isCorresponding: false },
-        { name: "Ingo Koehne", isCorresponding: false },
-        { name: "Lutz F. Tietze", isCorresponding: true }
-      ],
-      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
-      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
-      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
-      pdfUrl: "#",
-      supplementaryUrl: "#",
-      image: "/public/journal7.webp",
-      researchImage: "/public/publication7.webp",
+      researchImage: "/publication7.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -401,7 +383,38 @@ const Publications = () => {
       pdfUrl: "#",
       supplementaryUrl: "#",
       image: "/public/journal8.webp",
-      researchImage: "public/publication8.webp",
+      researchImage: "/publication8.webp",
+      statusColor: "bg-green-100 text-green-700",
+      link: ''
+    },
+    {
+      id: 8,
+      title: "Enantioselective Total Synthesis of Secalonic Acid E",
+      journal: "Chem. Eur. J. 2015, 21, 16807-16810",
+      year: 2015,
+      volume: "21",
+      pages: "16807-16810",
+      type: "Communication",
+      status: "Published",
+      impactFactor: "11.205",
+      citations: 67,
+      authors: [
+        { name: "Dhandapani Ganapathy", isCorresponding: true },
+        { name: "Johannes R. Reiner", isCorresponding: false },
+        { name: "Lorenz E. Löffler", isCorresponding: false },
+        { name: "Ling Ma", isCorresponding: false },
+        { name: "Boopathy Gnanaprakasam", isCorresponding: false },
+        { name: "Benedikt Niepötter", isCorresponding: false },
+        { name: "Ingo Koehne", isCorresponding: false },
+        { name: "Lutz F. Tietze", isCorresponding: true }
+      ],
+      abstract: "This work presents the total synthesis and comprehensive biological evaluation of carbamorphine, a novel morphine analog featuring strategic O-to-CH2 replacement in the E-ring. The synthetic approach demonstrates exceptional chemoselectivity and provides access to previously inaccessible structural modifications of the morphine pharmacophore.",
+      keywords: ["Total Synthesis", "Morphine", "Drug Discovery", "Medicinal Chemistry", "Pharmacology"],
+      doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
+      pdfUrl: "#",
+      supplementaryUrl: "#",
+      image: "/public/journal8.webp",
+      researchImage: "/publication8.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },

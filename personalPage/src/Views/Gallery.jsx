@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
 
@@ -178,11 +180,14 @@ const Gallery = () => {
                     onClick={() => openModal(image)}
                   >
                     <div className="relative overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm border border-white/30 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105">
-                      <img
+                      <LazyLoadImage
                         src={image.src}
                         alt={image.alt}
+                        effect="blur"
                         className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
+                        width="100%"
+                        height="256"
                       />
                       
                       
@@ -201,10 +206,13 @@ const Gallery = () => {
                     className="relative max-w-4xl max-h-[90vh] mx-4"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <img
+                    <LazyLoadImage
                       src={selectedImage.src}
                       alt={selectedImage.alt}
+                      effect="blur"
                       className="max-w-full max-h-full object-contain rounded-2xl"
+                      width="100%"
+                      height="auto"
                     />
                     
                     {/* Close button */}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from '../Components/Layout';
 import { a } from 'framer-motion/client';
 
@@ -23,10 +25,13 @@ const ProfessorCard = ({ member }) => {
           {/* Large Profile Image */}
           <div className="md:col-span-2 relative">
             <div className="h-80 md:h-full overflow-hidden">
-              <img
+              <LazyLoadImage
                 src={member.image}
                 alt={member.name}
+                effect="blur"
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                width="100%"
+                height="320"
               />
               {/* Image overlay with gradient */}
               <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-r from-transparent via-transparent to-black/10"></div>
@@ -99,11 +104,14 @@ const StudentCard = ({ member }) => {
       {/* Main card */}
       <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
         {/* Profile Image */}
-        <div className="relative h-80 overflow-hidden">
-          <img
+        <div className="relative h-80 overflow-hidden flex items-center justify-center">
+          <LazyLoadImage
             src={member.image}
             alt={member.name}
+            effect="blur"
             className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
+            width="100%"
+            height="320"
           />
           {/* Image overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>

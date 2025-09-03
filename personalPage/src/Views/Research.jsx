@@ -1,4 +1,6 @@
 import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Layout from '../Components/Layout';
 import { div } from 'framer-motion/client';
 
@@ -89,11 +91,14 @@ const Research = () => {
 
                   <div className="h-full rounded-xl overflow-hidden">
                     <div className='h-full rounded-xl overflow-hidden shadow-2xl'>
-                      <img
+                      <LazyLoadImage
                         src={area.image}
                         alt={area.title}
+                        effect="blur"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 shadow-2xl"
                         style={{ boxShadow: '0 8px 32px 0 rgba(60,60,60,0.25)' }}
+                        width="100%"
+                        height="100%"
                         onError={(e) => {
                           e.target.src = '/placeholder-tech.webp';
                         }}
