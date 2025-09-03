@@ -5,19 +5,19 @@ const ResearchInterests = () => {
         {
             id: 1,
             title: "Photocatalysis",
-            image: "public/photoOrganicSynthesis.png",
+            image: "public/photoOrganicSynthesis.webp",
             description: "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles."
         },
         {
             id: 2,
             title: "Electrocatalysis",
-            image: "public/elctroOrganicSynthesis.jpg",
+            image: "public/elctroOrganicSynthesis.webp",
             description: "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications."
         },
         {
             id: 3,
             title: "Total Synthesis and Natural Products",
-            image: "public/totalSynthesis.jpg",
+            image: "public/totalSynthesis.webp",
             description: "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies."
         }
     ];

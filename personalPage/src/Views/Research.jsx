@@ -9,7 +9,7 @@ const Research = () => {
       title: "Photocatalysis",
       description: "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles.",
       features: ["Synthetic Methodology", "Drug Discovery", "Reaction Mechanisms", "Molecular Design"],
-      image: "photoOrganicSynthesis.png",
+      image: "photoOrganicSynthesis.webp",
       gradient: "from-gray-300 to-gray-400",
       shadow: "shadow-lg shadow-gray-300/50"
     },
@@ -18,7 +18,7 @@ const Research = () => {
       title: "Electrocatalysis",
       description: "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications.",
       features: ["Green Chemistry", "Sustainable Processes", "Catalyst Design", "Industrial Applications"],
-      image: "elctroOrganicSynthesis.jpg",
+      image: "elctroOrganicSynthesis.webp",
       gradient: "from-gray-400 to-gray-500",
       shadow: "shadow-lg shadow-gray-400/50"
     },
@@ -27,7 +27,7 @@ const Research = () => {
       title: "Total Synthesis and Natural Products",
       description: "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
       features: ["Natural Products", "Complex Molecules", "Synthetic Routes", "Method Development"],
-      image: "totalSynthesis.jpg",
+      image: "totalSynthesis.webp",
       gradient: "from-gray-200 to-gray-300",
       shadow: "shadow-lg shadow-gray-200/50"
     },
@@ -95,7 +95,7 @@ const Research = () => {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 shadow-2xl"
                         style={{ boxShadow: '0 8px 32px 0 rgba(60,60,60,0.25)' }}
                         onError={(e) => {
-                          e.target.src = '/placeholder-tech.jpg';
+                          e.target.src = '/placeholder-tech.webp';
                         }}
                       />
                     </div>

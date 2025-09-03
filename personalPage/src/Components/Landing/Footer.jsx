@@ -89,7 +89,7 @@ const Footer = () => {
           <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-400 to-gray-400"></div>
 
           <h4 className="text-center px-4">
-            Made with ❤️ by Naman Sharma
+            Made by Naman Sharma
           </h4>
 
 

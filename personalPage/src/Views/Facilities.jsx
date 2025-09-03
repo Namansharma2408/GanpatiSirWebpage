@@ -104,7 +104,7 @@ const Facilities = () => {
       icon: "🧲",
       gradientFrom: "from-blue-400",
       gradientTo: "to-indigo-500",
-      image: "/nmr.jpg",
+      image: "/nmr.webp",
       route: "/facilities/nmr-60mhz"
     },
     {
@@ -118,7 +118,7 @@ const Facilities = () => {
       icon: "🔥",
       gradientFrom: "from-red-400",
       gradientTo: "to-orange-500",
-      image: "/singleCrystal.jpg",
+      image: "/singleCrystal.webp",
       route: "/facilities/hot-air-oven"
     },
     {
@@ -132,7 +132,7 @@ const Facilities = () => {
       icon: "📊",
       gradientFrom: "from-purple-400",
       gradientTo: "to-pink-500",
-      image: "/ftir.jpg",
+      image: "/ftir.webp",
       route: "/facilities/ftir-atr"
     },
     {
@@ -146,7 +146,7 @@ const Facilities = () => {
       icon: "🌈",
       gradientFrom: "from-cyan-400",
       gradientTo: "to-blue-500",
-      image: "/uvs.JPG",
+      image: "/uvs.webp",
       route: "/facilities/uv-vis-spectrometer"
     },
     {
@@ -160,7 +160,7 @@ const Facilities = () => {
       icon: "📈",
       gradientFrom: "from-green-400",
       gradientTo: "to-teal-500",
-      image: "/gcms.JPG",
+      image: "/gcms.webp",
       route: "/facilities/gc-ms"
     },
     {
@@ -174,7 +174,7 @@ const Facilities = () => {
       icon: "💧",
       gradientFrom: "from-blue-400",
       gradientTo: "to-cyan-500",
-      image: "/hplc.jpg",
+      image: "/hplc.webp",
       route: "/facilities/hplc"
     },
     
@@ -191,7 +191,7 @@ const Facilities = () => {
       icon: "🌪️",
       gradientFrom: "from-orange-400",
       gradientTo: "to-yellow-500",
-      image: "/rotavapour.jpg",
+      image: "/rotavapour.webp",
       route: "/facilities/rotary-evaporator"
     },
     {
@@ -205,7 +205,7 @@ const Facilities = () => {
       icon: "💡",
       gradientFrom: "from-yellow-400",
       gradientTo: "to-orange-500",
-      image: "/photoreactor.jpg",
+      image: "/photoreactor.webp",
       route: "/facilities/photo-reactor"
     },
 
@@ -220,7 +220,7 @@ const Facilities = () => {
       icon: "⚖️",
       gradientFrom: "from-gray-400",
       gradientTo: "to-gray-600",
-      image: "/analyticalBalance.jpg",
+      image: "/analyticalBalance.webp",
       route: "/facilities/analytical-balance"
     },
     {
@@ -234,7 +234,7 @@ const Facilities = () => {
       icon: "🔊",
       gradientFrom: "from-blue-400",
       gradientTo: "to-teal-500",
-      image: "/sonikator.jpg",
+      image: "/sonikator.webp",
       route: "/facilities/ultrasonic-cleaner"
     },
     {
@@ -248,7 +248,7 @@ const Facilities = () => {
       icon: "💧",
       gradientFrom: "from-blue-400",
       gradientTo: "to-cyan-500",
-      image: "/afc.jpg",
+      image: "/afc.webp",
       route: "/facilities/elga-water-purification"
     },
     

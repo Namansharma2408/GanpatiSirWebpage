@@ -117,8 +117,8 @@ const RecentPublication = () => {
       doi: "e202400996",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "public/journal1.jpg",
-      researchImage: "public/publication1.jpg",
+      image: "public/journal1.webp",
+      researchImage: "public/publication1.webp",
       statusColor: "bg-green-100 text-green-700",
       link: 'http://seamless.iitbhilai.ac.in'
     },
@@ -145,8 +145,8 @@ const RecentPublication = () => {
       doi: "https://doi.org/10.1073/pnas.2425438122",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal2.jpg",
-      researchImage: "/public/publication2.jpg",
+      image: "/public/journal2.webp",
+      researchImage: "/public/publication2.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },

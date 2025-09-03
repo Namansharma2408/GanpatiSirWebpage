@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
 
+// Direct imports for testing
+import gallery1 from '../assets/gallery/gallery1.webp';
+import gallery2 from '../assets/gallery/gallery2.webp';
+import gallery3 from '../assets/gallery/gallery3.webp';
+
 // Dynamic image loading from assets/gallery folder
-const galleryImageModules = import.meta.glob('../assets/gallery/*.{jpg,jpeg,png,JPG,JPEG,PNG}', {
+const galleryImageModules = import.meta.glob('/src/assets/gallery/*.{webp,WEBP}', {
   eager: true,
   as: 'url'
 });
@@ -13,44 +18,81 @@ const Gallery = () => {
   const [galleryImages, setGalleryImages] = useState([]);
 
   useEffect(() => {
-    // Convert the imported modules to gallery image objects
-    const images = Object.entries(galleryImageModules).map(([path, src], index) => {
-      // Extract filename from path
-      const filename = path.split('/').pop();
-      const nameWithoutExt = filename.replace(/\.(jpg|jpeg|png)$/i, '');
-      
-      // Generate title from filename (convert kebab-case/underscore to title case)
-      const title = nameWithoutExt
-        .replace(/[-_]/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase());
-      
-      // Auto-categorize based on filename keywords
-      let category = 'General';
-      const lowerFilename = filename.toLowerCase();
-      
-      if (lowerFilename.includes('team') || lowerFilename.includes('researcher') || lowerFilename.includes('pi') || lowerFilename.includes('dr')) {
-        category = 'Team';
-      } else if (lowerFilename.includes('research') || lowerFilename.includes('synthesis') || lowerFilename.includes('experiment')) {
-        category = 'Research';
-      } else if (lowerFilename.includes('publication') || lowerFilename.includes('journal') || lowerFilename.includes('paper')) {
-        category = 'Publications';
-      } else if (lowerFilename.includes('facility') || lowerFilename.includes('lab') || lowerFilename.includes('equipment')) {
-        category = 'Facility';
-      } else if (lowerFilename.includes('instrument') || lowerFilename.includes('spectrometer') || lowerFilename.includes('analyzer')) {
-        category = 'Instrumentation';
-      }
-      
-      return {
-        id: index + 1,
-        src,
-        alt: title,
-        title,
-        category,
-        description: `${title} - ${category} image`,
-        filename
-      };
-    });
+    console.log('Gallery image modules:', galleryImageModules);
     
+    // Fallback to direct imports if glob import doesn't work
+    const directImages = [
+      {
+        id: 1,
+        src: gallery1,
+        alt: 'Gallery 1',
+        title: 'Gallery 1',
+        category: 'General',
+        description: 'Gallery 1 - General image',
+        filename: 'gallery1.webp'
+      },
+      {
+        id: 2,
+        src: gallery2,
+        alt: 'Gallery 2',
+        title: 'Gallery 2',
+        category: 'General',
+        description: 'Gallery 2 - General image',
+        filename: 'gallery2.webp'
+      },
+      {
+        id: 3,
+        src: gallery3,
+        alt: 'Gallery 3',
+        title: 'Gallery 3',
+        category: 'General',
+        description: 'Gallery 3 - General image',
+        filename: 'gallery3.webp'
+      }
+    ];
+
+    // Convert the imported modules to gallery image objects
+    const images = Object.keys(galleryImageModules).length > 0 
+      ? Object.entries(galleryImageModules).map(([path, src], index) => {
+          console.log('Processing image:', path, src);
+          // Extract filename from path
+          const filename = path.split('/').pop();
+          const nameWithoutExt = filename.replace(/\.webp$/i, '');
+          
+          // Generate title from filename (convert kebab-case/underscore to title case)
+          const title = nameWithoutExt
+            .replace(/[-_]/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+      
+          // Auto-categorize based on filename keywords
+          let category = 'General';
+          const lowerFilename = filename.toLowerCase();
+          
+          if (lowerFilename.includes('team') || lowerFilename.includes('researcher') || lowerFilename.includes('pi') || lowerFilename.includes('dr')) {
+            category = 'Team';
+          } else if (lowerFilename.includes('research') || lowerFilename.includes('synthesis') || lowerFilename.includes('experiment')) {
+            category = 'Research';
+          } else if (lowerFilename.includes('publication') || lowerFilename.includes('journal') || lowerFilename.includes('paper')) {
+            category = 'Publications';
+          } else if (lowerFilename.includes('facility') || lowerFilename.includes('lab') || lowerFilename.includes('equipment')) {
+            category = 'Facility';
+          } else if (lowerFilename.includes('instrument') || lowerFilename.includes('spectrometer') || lowerFilename.includes('analyzer')) {
+            category = 'Instrumentation';
+          }
+          
+          return {
+            id: index + 1,
+            src,
+            alt: title,
+            title,
+            category,
+            description: `${title} - ${category} image`,
+            filename
+          };
+        })
+      : directImages;
+    
+    console.log('Processed images:', images);
     setGalleryImages(images);
   }, []);
 
@@ -78,10 +120,10 @@ const Gallery = () => {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center mb-12 z-20 relative">
             <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
-              Publications
+              Gallery
             </h1>
             <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
-              Research contributions to the scientific community in organic synthesis, computational chemistry, and materials science.
+              Explore the memories and milestones of our research journey through this curated collection of images.
             </p>
           </div>
           {/* Category Filter */}
@@ -119,9 +161,8 @@ const Gallery = () => {
                 <div className="text-left bg-gray-50 p-4 rounded-lg">
                   <h4 className="font-medium text-gray-800 mb-2">Supported formats:</h4>
                   <ul className="text-sm text-gray-600 space-y-1">
-                    <li>• JPG, JPEG</li>
-                    <li>• PNG</li>
-                    <li>• Uppercase and lowercase extensions</li>
+                    <li>• WebP images only</li>
+                    <li>• Add .webp files to src/assets/gallery/</li>
                   </ul>
                 </div>
               </div>

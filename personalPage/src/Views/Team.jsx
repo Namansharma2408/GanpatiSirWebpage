@@ -168,7 +168,7 @@ const Team = () => {
     department: "Chemistry Department",
     specialization: "Organic Chemistry, Medicinal Chemistry, and Drug Discovery. Leading groundbreaking research in developing novel synthetic methodologies and bioactive compounds. With over 15 years of experience, Dr. Ganapathy has published numerous papers in high-impact journals and has been instrumental in advancing chemical research in medicinal applications.",
     skills: ["Organic Synthesis", "Drug Discovery", "Spectroscopy", "Research Leadership", "Grant Writing", "Team Management"],
-    image: "/ganpathi.JPG",
+    image: "/ganpathi.webp",
     email: "ganapathy@university.edu",
     linkedin: "#",
     researchgate: "#",
@@ -185,7 +185,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis,Total synthesis",
-      image: "/baldau.JPG",
+      image: "/baldau.webp",
       email: "baldaus@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-green-500",
@@ -200,7 +200,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Photocatalytic Organic Synthesis",
-      image: "/neeraj.JPG",
+      image: "/neeraj.webp",
       email: "neerajbr@iitbhilai.ac.in",
       bsc: "Veer Narmad South  Gujarat University",
       msc: "Sardar Patel University",
@@ -215,7 +215,7 @@ const Team = () => {
       role: "PhD",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis and Total Synthesis",
-      image: "/piyush.jpeg",
+      image: "/piyush.webp",
       email: "piyushp@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-blue-500",
@@ -234,7 +234,7 @@ const Team = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Electrochemical Organic Synthesis",
-      image: "/nagarajan.JPG",
+      image: "/nagarajan.webp",
       email: "nagarajanan@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-orange-500",
@@ -247,7 +247,7 @@ const Team = () => {
       role: "MSc",
       department: "Chemistry Department",
       specialization: "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
-      image: "/abhijit.JPG",
+      image: "/abhijit.webp",
       email: "abhijitpa@iitbhilai.ac.in",
       linkedin: "",
       gradientFrom: "from-indigo-500",
@@ -267,7 +267,7 @@ const Team = () => {
           {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full"
-            style={{ backgroundImage: "url('/completeTeam.JPG')" }}
+            style={{ backgroundImage: "url('/completeTeam.webp')" }}
           ></div>
           {/* Overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>

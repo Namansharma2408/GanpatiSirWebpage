@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../Components/Layout';
 import GlassEffectBg from '../Components/Landing/GlassEffectBg';
 import { link } from 'framer-motion/client';
@@ -72,7 +72,7 @@ const PublicationCard = ({ publication, index }) => {
                   src={publication.image}
                   alt={publication.title}
                   className="w-full object-cover"
-                  style={publication.image === '/public/journal2.jpg' ? { height: '120px' } : {}}
+                  style={publication.image === '/public/journal2.webp' ? { height: '120px' } : {}}
                 />
                 {/* Research image below */}
                 <div className="w-full h-fit  flex justify-center align-middle ">
@@ -144,8 +144,10 @@ const PublicationCard = ({ publication, index }) => {
 };
 
 const Publications = () => {
-  // Publications data array - Academic style
-  const publications = [
+  const [publications, setPublications] = useState([]);
+
+  useEffect(() => {
+    const data = [
     {
       id: 1,
       title: "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
@@ -169,8 +171,8 @@ const Publications = () => {
       doi: "e202400996",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "public/journal1.jpg",
-      researchImage: "public/publication1.jpg",
+      image: "public/journal1.webp",
+      researchImage: "public/publication1.webp",
       statusColor: "bg-green-100 text-green-700",
       link: 'https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996'
     },
@@ -197,8 +199,8 @@ const Publications = () => {
       doi: "https://doi.org/10.1073/pnas.2425438122",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal2.jpg",
-      researchImage: "/public/publication2.jpg",
+      image: "/public/journal2.webp",
+      researchImage: "/public/publication2.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -225,8 +227,8 @@ const Publications = () => {
       doi: "https://pubs.acs.org/doi/10.1021/acs.orglett.8b00487",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal3.jpg",
-      researchImage: "/public/publication3.jpg",
+      image: "/public/journal3.webp",
+      researchImage: "/public/publication3.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -253,8 +255,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal4.jpg",
-      researchImage: "/public/publication4.jpg",
+      image: "/public/journal4.webp",
+      researchImage: "/public/publication4.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -264,7 +266,7 @@ const Publications = () => {
       journal: "Chem. Eur. J. 2018, 13, 1888-1891.",
       year: 2018,
       volume: "13",
-      pages: "1888-18891",
+      pages: "1888-18991",
       type: "Communication",
       status: "Published",
       impactFactor: "11.205",
@@ -281,8 +283,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal5.jpg",
-      researchImage: "/public/publication5.jpg",
+      image: "/public/journal5.webp",
+      researchImage: "publication5.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -309,8 +311,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal5.jpg",
-      researchImage: "/public/publication5.jpg",
+      image: "/public/journal5.webp",
+      researchImage: "/public/publication5.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -336,8 +338,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal7.jpg",
-      researchImage: "/public/publication7.jpg",
+      image: "/public/journal7.webp",
+      researchImage: "/public/publication7.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -367,8 +369,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal7.jpg",
-      researchImage: "/public/publication7.jpg",
+      image: "/public/journal7.webp",
+      researchImage: "/public/publication7.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -398,12 +400,14 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal8.jpg",
-      researchImage: "/public/publication8.jpg",
+      image: "/public/journal8.webp",
+      researchImage: "public/publication8.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
   ];
+    setPublications(data);
+  }, []);
 
   return (
     <>
