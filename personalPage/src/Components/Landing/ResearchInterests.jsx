@@ -7,19 +7,19 @@ const ResearchInterests = () => {
         {
             id: 1,
             title: "Photocatalysis",
-            image: "public/photoOrganicSynthesis.webp",
+            image: "photoOrganicSynthesis.webp",
             description: "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles."
         },
         {
             id: 2,
             title: "Electrocatalysis",
-            image: "public/elctroOrganicSynthesis.webp",
+            image: "elctroOrganicSynthesis.webp",
             description: "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications."
         },
         {
             id: 3,
             title: "Total Synthesis and Natural Products",
-            image: "public/totalSynthesis.webp",
+            image: "totalSynthesis.webp",
             description: "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies."
         }
     ];
@@ -53,7 +53,8 @@ const ResearchInterests = () => {
                                     effect="blur"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     width="100%"
-                                    height="256"
+                                    height="auto"
+                                    placeholderSrc="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+Cjwvc3ZnPgo="
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                             </div>
