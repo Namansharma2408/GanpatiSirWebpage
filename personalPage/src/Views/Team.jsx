@@ -23,7 +23,7 @@ const ProfessorCard = ({ member }) => {
       <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500">
         <div className="grid md:grid-cols-5 gap-0">
           {/* Large Profile Image */}
-          <div className="md:col-span-2 relative">
+          <div className="md:col-span-2 relative ">
             <div className="h-80 md:h-full overflow-hidden">
               <LazyLoadImage
                 src={member.image}
@@ -31,7 +31,7 @@ const ProfessorCard = ({ member }) => {
                 effect="blur"
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 width="100%"
-                height="320"
+                height="100%"
               />
               {/* Image overlay with gradient */}
               <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-r from-transparent via-transparent to-black/10"></div>
