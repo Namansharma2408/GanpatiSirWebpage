@@ -212,8 +212,8 @@ const Publications = () => {
       doi: "https://doi.org/10.1073/pnas.2425438122",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal2.webp",
-      researchImage: "/public/publication2.webp",
+      image: "journal2.webp",
+      researchImage: "publication2.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -240,7 +240,7 @@ const Publications = () => {
       doi: "https://pubs.acs.org/doi/10.1021/acs.orglett.8b00487",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal3.webp",
+      image: "journal3.webp",
       researchImage: "/publication3.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
@@ -268,7 +268,7 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal4.webp",
+      image: "journal4.webp",
       researchImage: "/publication4.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
@@ -296,7 +296,7 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal5.webp",
+      image: "journal5.webp",
       researchImage: "/publication5.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
@@ -324,8 +324,8 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal5.webp",
-      researchImage: "/public/publication5.webp",
+      image: "journal5.webp",
+      researchImage: "publication5.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
     },
@@ -351,7 +351,7 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal7.webp",
+      image: "journal7.webp",
       researchImage: "/publication7.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
@@ -382,7 +382,7 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal8.webp",
+      image: "journal8.webp",
       researchImage: "/publication8.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
@@ -413,7 +413,7 @@ const Publications = () => {
       doi: "https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/chem.201801323",
       pdfUrl: "#",
       supplementaryUrl: "#",
-      image: "/public/journal8.webp",
+      image: "journal8.webp",
       researchImage: "/publication8.webp",
       statusColor: "bg-green-100 text-green-700",
       link: ''
