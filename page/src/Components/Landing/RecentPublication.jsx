@@ -53,7 +53,7 @@ const PublicationCard = ({ publication, index }) => {
                   <div className="mb-3">
                     <p className="text-gray-700 text-sm">
                       {publication.authors.map((author, idx) => (
-                        <span key={idx}>
+                        <span key={`${author.name}-${idx}`}>
                           <span className={author.isCorresponding ? 'font-bold' : ''}>
                             {author.name} {author.isCorresponding ? '*' : ''}
                           </span>
@@ -359,6 +359,31 @@ const RecentPublication = () => {
         supplementaryUrl: "#",
         image: "journal8.webp",
         researchImage: "/publication8.webp",
+        statusColor: "bg-green-100 text-green-700",
+        link: ''
+      },
+      {
+        id: 10,
+        title: "Another Research Publication",
+        journal: "J. Org. Chem. 2024, 89, 1234-1245",
+        year: 2024,
+        volume: "89",
+        pages: "1234-1245",
+        type: "Research Article",
+        status: "Published",
+        impactFactor: "4.335",
+        citations: 15,
+        authors: [
+          { name: "Dhandapani Ganapathy", isCorresponding: true },
+          { name: "Research Team", isCorresponding: false }
+        ],
+        abstract: "Additional research publication to ensure unique IDs.",
+        keywords: ["Organic Chemistry", "Research"],
+        doi: "https://doi.org/10.1021/acs.joc.2024",
+        pdfUrl: "#",
+        supplementaryUrl: "#",
+        image: "journal1.webp",
+        researchImage: "/publication1.webp",
         statusColor: "bg-green-100 text-green-700",
         link: ''
       },

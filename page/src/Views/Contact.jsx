@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Layout from '../Components/Layout';
-
+import DatabaseComponent from '../Components/appwrite/database';
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -231,6 +231,8 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
+        <DatabaseComponent/>
       </div>
     </Layout>
   );

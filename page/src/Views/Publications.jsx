@@ -47,7 +47,7 @@ const PublicationCard = ({ publication, index }) => {
                 <h3 className="text-xl font-semibold text-blue-800 leading-tight mb-3">
                   {index === 0 ? (
                     <>
-                      {index + 1}. <a href="https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996" target="_blank" rel="noopener noreferrer" className="underline text-blue-900 hover:text-blue-700">{publication.title}</a>
+                      {index + 1}. <span className="underline text-blue-900 hover:text-blue-700">{publication.title}</span>
                     </>
                   ) : (
                     <>{index + 1}. {publication.title}</>
@@ -103,7 +103,7 @@ const PublicationCard = ({ publication, index }) => {
                     <h3 className="text-2xl font-semibold text-blue-800 leading-tight mb-3">
                       {index === 0 ? (
                         <>
-                          {index + 1}. <a href="https://chemistry-europe.onlinelibrary.wiley.com/doi/full/10.1002/ejoc.202400996" target="_blank" rel="noopener noreferrer" className="underline text-blue-900 hover:text-blue-700">{publication.title}</a>
+                          {index + 1}. <span className="underline text-blue-900 hover:text-blue-700">{publication.title}</span>
                         </>
                       ) : (
                         <>{index + 1}. {publication.title}</>
@@ -389,7 +389,7 @@ const Publications = () => {
       link: ''
     },
     {
-      id: 8,
+      id: 9,
       title: "Enantioselective Total Synthesis of Secalonic Acid E",
       journal: "Chem. Eur. J. 2015, 21, 16807-16810",
       year: 2015,
@@ -481,6 +481,7 @@ const Publications = () => {
     </>
   );
 };
+
 
 export default Publications;
 

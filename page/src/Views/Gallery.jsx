@@ -38,7 +38,8 @@ const galleryImagesData = [
     category: 'General',
     description: 'Gallery 3 - General image',
     filename: 'gallery3.webp'
-  }
+  },
+  
 ];
 
 const Gallery = () => {
@@ -52,8 +53,8 @@ const Gallery = () => {
   const categories = galleryImages.length > 0 ? ['All', ...new Set(galleryImages.map(img => img.category))] : ['All'];
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredImages = activeCategory === 'All' 
-    ? galleryImages 
+  const filteredImages = activeCategory === 'All'
+    ? galleryImages
     : galleryImages.filter(img => img.category === activeCategory);
 
   const openModal = (image) => {
@@ -86,18 +87,19 @@ const Gallery = () => {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                    activeCategory === category
+                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${activeCategory === category
                       ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
                       : 'bg-white/60 backdrop-blur-sm border border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:scale-105'
-                  }`}
+                    }`}
                 >
                   {category}
                 </button>
               ))}
             </div>
-          )}
 
+
+          )}
+          
           {/* Gallery Content */}
           {galleryImages.length === 0 ? (
             <div className="text-center py-16">
@@ -140,8 +142,8 @@ const Gallery = () => {
                         width="100%"
                         height="256"
                       />
-                      
-                      
+
+
                     </div>
                   </div>
                 ))}
@@ -149,11 +151,11 @@ const Gallery = () => {
 
               {/* Modal for full-size image view */}
               {selectedImage && (
-                <div 
+                <div
                   className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
                   onClick={closeModal}
                 >
-                  <div 
+                  <div
                     className="relative max-w-4xl max-h-[90vh] mx-4"
                     onClick={(e) => e.stopPropagation()}
                   >
@@ -165,7 +167,7 @@ const Gallery = () => {
                       width="100%"
                       height="auto"
                     />
-                    
+
                     {/* Close button */}
                     <button
                       onClick={closeModal}
@@ -175,12 +177,12 @@ const Gallery = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
-                    
+
                   </div>
                 </div>
               )}
 
-              
+
             </>
           )}
         </div>
