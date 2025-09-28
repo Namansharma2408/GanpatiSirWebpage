@@ -1,25 +1,21 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import LoadingScreen from '../src/Views/LoadingScreen'
-import LandingPage from '../src/Views/LandingPage'
+import { useState, useEffect } from "react";
+import LoadingScreen from "../src/Views/LoadingScreen";
+import LandingPage from "../src/Views/LandingPage";
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading, replace with your own logic (e.g. images loaded, API call, etc.)
-    const timer = setTimeout(() => setLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
+    const handleLoad = () => setLoading(false);
+    if (document.readyState === "complete") {
+      setLoading(false); // already loaded
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
 
-  return (
-    <div>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <LandingPage />
-      )}
-    </div>
-  )
+  return <div>{loading ? <LoadingScreen /> : <LandingPage />}</div>;
 }
