@@ -17,10 +17,19 @@ const Page = () => {
 
   // Store random heights in state, only on client
   const [randomHeights, setRandomHeights] = useState([])
+  const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
     setRandomHeights(images.map(() => heightClasses[Math.floor(Math.random() * heightClasses.length)]))
   }, [])
+
+  const openLightbox = (index) => {
+    setSelectedImage(index)
+  }
+
+  const closeLightbox = () => {
+    setSelectedImage(null)
+  }
 
   return (
     <div>
@@ -39,7 +48,11 @@ const Page = () => {
         columnClassName="my-masonry-grid_column"
       >
         {randomHeights.length > 0 && images.map((img, idx) => (
-          <div key={idx} className={`relative w-full ${randomHeights[idx]} overflow-hidden rounded-lg mb-4`}>
+          <div 
+            key={idx} 
+            className={`relative w-full ${randomHeights[idx]} overflow-hidden rounded-lg mb-4 cursor-pointer hover:opacity-90 transition-opacity`}
+            onClick={() => openLightbox(idx)}
+          >
             <Image
               src={img.src}
               alt={img.alt || 'Image'}
@@ -49,6 +62,52 @@ const Page = () => {
           </div>
         ))}
       </Masonry>
+
+      {/* Lightbox Modal */}
+      {selectedImage !== null && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md"
+          onClick={closeLightbox}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-24 right-12 z-50 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-all duration-200 group"
+            aria-label="Close"
+          >
+            <svg
+              className="w-6 h-6 text-white group-hover:scale-110 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+
+          {/* Image Container */}
+          <div 
+            className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex items-center justify-center p-4"
+          >
+            <div 
+              className="relative w-full h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={images[selectedImage].src}
+                alt={images[selectedImage].alt || 'Image'}
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
