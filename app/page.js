@@ -288,37 +288,38 @@ const GlassEffectBg = () => {
     ></div>
   );
 };
+
+// Fallback data moved outside component to avoid React Hook warnings
+const fallbackResearchAreas = [
+  {
+    id: 1,
+    title: "Photocatalysis",
+    image: null,
+    description:
+      "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles.",
+  },
+  {
+    id: 2,
+    title: "Electrocatalysis",
+    image: null,
+    description:
+      "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications.",
+  },
+  {
+    id: 3,
+    title: "Total Synthesis and Natural Products",
+    image: null,
+    description:
+      "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
+  },
+];
+
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [researchAreas, setResearchAreas] = useState([]);
   const [publications, setPublications] = useState([]);
   const [facilities, setFacilities] = useState([]);
   const [teamMembers, setTeamMembers] = useState([]);
-
-  // Fallback research areas data
-  const fallbackResearchAreas = [
-    {
-      id: 1,
-      title: "Photocatalysis",
-      image: null,
-      description:
-        "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles.",
-    },
-    {
-      id: 2,
-      title: "Electrocatalysis",
-      image: null,
-      description:
-        "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications.",
-    },
-    {
-      id: 3,
-      title: "Total Synthesis and Natural Products",
-      image: null,
-      description:
-        "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
-    },
-  ];
 
   // Fetch research interests from API
   useEffect(() => {
@@ -365,6 +366,7 @@ export default function Home() {
         console.warn('Failed to fetch publications:', err);
         setPublications(fallbackPublications);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fallback publications data
@@ -851,10 +853,12 @@ export default function Home() {
         console.warn('Failed to fetch team members:', err);
         setTeamMembers(fallbackTeamMembers);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const arr = useMemo(
     () => teamMembers.length > 0 ? teamMembers : fallbackTeamMembers,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [teamMembers]
   );
 
