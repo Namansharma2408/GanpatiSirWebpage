@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import { databases } from "@/utils/appwrite";
 import { retryWithBackoff } from "@/utils/retryFetch";
+import { APPWRITE_DATABASE_ID } from "@/utils/constants";
 
 export async function GET() {
   try {
     const res = await retryWithBackoff(
       () => databases.listDocuments(
-        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
+        APPWRITE_DATABASE_ID,
         "gallery"
       ),
       3,
