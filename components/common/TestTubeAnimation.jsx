@@ -32,7 +32,7 @@ const TestTubeLoader = () => {
           boxShadow: '0 4px 32px rgba(0,0,0,0.3)',
         }}
       >
-        <source src="LoadingVideo.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dicnppgsn/video/upload/v1761564154/LoadingVideo_pzpu1e.mp4" type="video/mp4" />
       </video>
     </div>
   )

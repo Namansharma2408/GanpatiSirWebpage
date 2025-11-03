@@ -68,16 +68,20 @@ const PublicationCard = ({ publication, index }) => {
                 {/* Authors */}
                 <div className="mb-4">
                   <p className="text-gray-700 text-sm">
-                    {publication.authors.map((author, idx) => (
-                      <span key={idx}>
-                        <span
-                          className={author.isCorresponding ? "font-bold" : ""}
-                        >
-                          {author.name} {author.isCorresponding ? "*" : ""}
+                    {publication.authors && Array.isArray(publication.authors) ? (
+                      publication.authors.map((author, idx) => (
+                        <span key={idx}>
+                          <span
+                            className={author.isCorresponding ? "font-bold" : ""}
+                          >
+                            {author.name} {author.isCorresponding ? "*" : ""}
+                          </span>
+                          {idx < publication.authors.length - 1 && ", "}
                         </span>
-                        {idx < publication.authors.length - 1 && ", "}
-                      </span>
-                    ))}
+                      ))
+                    ) : (
+                      <span className="text-gray-500 italic">Authors not available</span>
+                    )}
                   </p>
                 </div>
               </div>
@@ -134,18 +138,22 @@ const PublicationCard = ({ publication, index }) => {
                     {/* Authors */}
                     <div className="mb-3">
                       <p className="text-gray-700 text-sm">
-                        {publication.authors.map((author, idx) => (
-                          <span key={idx}>
-                            <span
-                              className={
-                                author.isCorresponding ? "font-bold" : ""
-                              }
-                            >
-                              {author.name} {author.isCorresponding ? "*" : ""}
+                        {publication.authors && Array.isArray(publication.authors) ? (
+                          publication.authors.map((author, idx) => (
+                            <span key={idx}>
+                              <span
+                                className={
+                                  author.isCorresponding ? "font-bold" : ""
+                                }
+                              >
+                                {author.name} {author.isCorresponding ? "*" : ""}
+                              </span>
+                              {idx < publication.authors.length - 1 && ", "}
                             </span>
-                            {idx < publication.authors.length - 1 && ", "}
-                          </span>
-                        ))}
+                          ))
+                        ) : (
+                          <span className="text-gray-500 italic">Authors not available</span>
+                        )}
                       </p>
                     </div>
                   </div>
@@ -257,7 +265,7 @@ const Landingbackground = () => {
   return (
     <div className="w-full h-[100vh] bg-slate-200 overflow-hidden">
       <Image
-        src="/neeraj.webp"
+        src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762187983/landingBackground_rzvvvq.jpg"
         alt="Landing Background"
         effect="blur"
         className="w-full h-full object-cover object-center"
@@ -281,7 +289,14 @@ const GlassEffectBg = () => {
   );
 };
 export default function Home() {
-  const researchAreas = [
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [researchAreas, setResearchAreas] = useState([]);
+  const [publications, setPublications] = useState([]);
+  const [facilities, setFacilities] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
+
+  // Fallback research areas data
+  const fallbackResearchAreas = [
     {
       id: 1,
       title: "Photocatalysis",
@@ -304,18 +319,62 @@ export default function Home() {
         "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
     },
   ];
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [publications, setPublications] = useState([]);
-
+  // Fetch research interests from API
   useEffect(() => {
-    const data = [
-      {
-        id: 1,
-        title:
-          "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
-        journal: "Eur. J. Org. Chem. 2025, 28, 15432-15441. ",
-        year: 2025,
+    fetch('/api/researchintrest')
+      .then((res) => {
+        if (!res.ok) {
+          console.warn('Research interests API error, using fallback');
+          return [];
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setResearchAreas(data);
+        } else {
+          setResearchAreas(fallbackResearchAreas);
+        }
+      })
+      .catch((err) => {
+        console.warn('Failed to fetch research interests:', err);
+        setResearchAreas(fallbackResearchAreas);
+      });
+  }, []);
+
+  // Fetch publications from API
+  useEffect(() => {
+    fetch('/api/publications')
+      .then((res) => {
+        if (!res.ok) {
+          console.warn('Publications API error, using fallback');
+          return [];
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPublications(data);
+        } else {
+          // Use fallback data if API returns empty
+          setPublications(fallbackPublications);
+        }
+      })
+      .catch((err) => {
+        console.warn('Failed to fetch publications:', err);
+        setPublications(fallbackPublications);
+      });
+  }, []);
+
+  // Fallback publications data
+  const fallbackPublications = [
+    {
+      id: 1,
+      title:
+        "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
+      journal: "Eur. J. Org. Chem. 2025, 28, 15432-15441. ",
+      year: 2025,
         volume: "28",
         pages: "15432-15441",
         type: "Research Article",
@@ -663,8 +722,6 @@ export default function Home() {
         link: "",
       },
     ];
-    setPublications(data);
-  }, []);
 
   // Auto-slide functionality
   useEffect(() => {
@@ -677,82 +734,128 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [publications.length]);
 
+  // Fetch facilities from API
+  useEffect(() => {
+    fetch('/api/facilitiesname')
+      .then((res) => {
+        if (!res.ok) {
+          console.warn('Facilities API error, using fallback');
+          return [];
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setFacilities(data);
+        }
+      })
+      .catch((err) => {
+        console.warn('Failed to fetch facilities:', err);
+      });
+  }, []);
+
+  // Fallback team members data
+  const fallbackTeamMembers = [
+    {
+      id: 2,
+      name: "Baldau Singh",
+      position: "PhD Student",
+      role: "PhD",
+      department: "Chemistry Department",
+      specialization: "Photocatalytic Organic Synthesis,Total synthesis",
+      image: null,
+      email: "baldaus@iitbhilai.ac.in",
+      linkedin: "",
+      gradientFrom: "from-green-500",
+      gradientTo: "to-teal-600",
+      bsc: "Udai Pratap College, Varanasi, UP",
+      msc: "Udai Pratap College, Varanasi, UP",
+    },
+    {
+      id: 3,
+      name: "Neeraj Tiwari",
+      position: "PhD Student",
+      role: "PhD",
+      department: "Chemistry Department",
+      specialization: "Photocatalytic Organic Synthesis",
+      image: null,
+      email: "neerajbr@iitbhilai.ac.in",
+      bsc: "Veer Narmad South  Gujarat University",
+      msc: "Sardar Patel University",
+      linkedin: "",
+      gradientFrom: "from-blue-500",
+      gradientTo: "to-indigo-600",
+    },
+    {
+      id: 4,
+      name: "Piyush Pandey",
+      position: "PhD Student",
+      role: "PhD",
+      department: "Chemistry Department",
+      specialization: "Electrochemical Organic Synthesis and Total Synthesis",
+      image: null,
+      email: "piyushp@iitbhilai.ac.in",
+      linkedin: "",
+      gradientFrom: "from-blue-500",
+      gradientTo: "to-indigo-600",
+      bsc: "Udai Pratap College, Varanasi, Uttar Pradesh",
+      msc: "Udai Pratap College, Varanasi, Uttar Pradesh",
+    },
+    {
+      id: 5,
+      name: "Nagarajan.S",
+      position: "MSc Student",
+      role: "MSc",
+      department: "Chemistry Department",
+      specialization: "Electrochemical Organic Synthesis",
+      image: null,
+      email: "nagarajanan@iitbhilai.ac.in",
+      linkedin: "",
+      gradientFrom: "from-orange-500",
+      gradientTo: "to-red-600",
+    },
+    {
+      id: 6,
+      name: "Abhijit Pandey",
+      position: "MSc Student",
+      role: "MSc",
+      department: "Chemistry Department",
+      specialization:
+        "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
+      image: null,
+      email: "abhijitpa@iitbhilai.ac.in",
+      linkedin: "",
+      gradientFrom: "from-indigo-500",
+      gradientTo: "to-purple-600",
+    },
+  ];
+
+  // Fetch team members from API
+  useEffect(() => {
+    fetch('/api/team')
+      .then((res) => {
+        if (!res.ok) {
+          console.warn('Team API error, using fallback');
+          return [];
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setTeamMembers(data);
+        } else {
+          setTeamMembers(fallbackTeamMembers);
+        }
+      })
+      .catch((err) => {
+        console.warn('Failed to fetch team members:', err);
+        setTeamMembers(fallbackTeamMembers);
+      });
+  }, []);
+
   const arr = useMemo(
-    () => [
-      {
-        id: 2,
-        name: "Baldau Singh",
-        position: "PhD Student",
-        role: "PhD",
-        department: "Chemistry Department",
-        specialization: "Photocatalytic Organic Synthesis,Total synthesis",
-        image: null,
-        email: "baldaus@iitbhilai.ac.in",
-        linkedin: "",
-        gradientFrom: "from-green-500",
-        gradientTo: "to-teal-600",
-        bsc: "Udai Pratap College, Varanasi, UP",
-        msc: "Udai Pratap College, Varanasi, UP",
-      },
-      {
-        id: 3,
-        name: "Neeraj Tiwari",
-        position: "PhD Student",
-        role: "PhD",
-        department: "Chemistry Department",
-        specialization: "Photocatalytic Organic Synthesis",
-        image: null,
-        email: "neerajbr@iitbhilai.ac.in",
-        bsc: "Veer Narmad South  Gujarat University",
-        msc: "Sardar Patel University",
-        linkedin: "",
-        gradientFrom: "from-blue-500",
-        gradientTo: "to-indigo-600",
-      },
-      {
-        id: 4,
-        name: "Piyush Pandey",
-        position: "PhD Student",
-        role: "PhD",
-        department: "Chemistry Department",
-        specialization: "Electrochemical Organic Synthesis and Total Synthesis",
-        image: null,
-        email: "piyushp@iitbhilai.ac.in",
-        linkedin: "",
-        gradientFrom: "from-blue-500",
-        gradientTo: "to-indigo-600",
-        bsc: "Udai Pratap College, Varanasi, Uttar Pradesh",
-        msc: "Udai Pratap College, Varanasi, Uttar Pradesh",
-      },
-      {
-        id: 5,
-        name: "Nagarajan.S",
-        position: "MSc Student",
-        role: "MSc",
-        department: "Chemistry Department",
-        specialization: "Electrochemical Organic Synthesis",
-        image: null,
-        email: "nagarajanan@iitbhilai.ac.in",
-        linkedin: "",
-        gradientFrom: "from-orange-500",
-        gradientTo: "to-red-600",
-      },
-      {
-        id: 6,
-        name: "Abhijit Pandey",
-        position: "MSc Student",
-        role: "MSc",
-        department: "Chemistry Department",
-        specialization:
-          "Materials Chemistry and Nanotechnology. Working on synthesis of nanomaterials for energy applications.",
-        image: null,
-        email: "abhijitpa@iitbhilai.ac.in",
-        linkedin: "",
-        gradientFrom: "from-indigo-500",
-        gradientTo: "to-purple-600",
-      },
-    ],
-    []
+    () => teamMembers.length > 0 ? teamMembers : fallbackTeamMembers,
+    [teamMembers]
   );
 
   const containerRef = useRef(null);
@@ -912,8 +1015,8 @@ useEffect(() => {
 
         {/* Cards Container */}
         <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {researchAreas.map((area) => (
-            <div key={area.id} className="group relative">
+          {researchAreas.map((area, index) => (
+            <div key={area.$id || area.id || index} className="group relative">
               {/* Card with Glass Morphism Effect */}
               <div className="relative backdrop-blur-xl border bg-white border-white/40 rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                 {/* Image Section */}
@@ -969,7 +1072,7 @@ useEffect(() => {
           >
             {publications.map((publication, index) => (
               <PublicationCard
-                key={publication.id}
+                key={publication.$id || publication.id || index}
                 publication={publication}
                 index={index}
               />
@@ -1014,16 +1117,16 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className=" h-screen ">
+        <div className="h-screen overflow-hidden relative">
           <div
             ref={sliderRef}
             className="absolute top-1/2 -translate-y-1/2 flex items-center space-x-6 md:space-x-12"
             style={{ willChange: "transform", height: "auto" }}
           >
-            {arr.map((student) =>
+            {arr.map((student, index) =>
               student.id === 1 ? null : (
                 <div
-                  key={student.id}
+                  key={student.$id || student.id || index}
                   className="student-card flex-shrink-0 w-72 md:w-80"
                 >
                   <StudentCard member={student} />
@@ -1047,7 +1150,8 @@ useEffect(() => {
         {/* Facilities Card */}
         <div className="w-full max-w-4xl mx-auto  backdrop-blur-lg rounded-2xl shadow-xl border border-white/30 p-8 flex flex-col items-center">
           {(() => {
-            const facilities = [
+            // Fallback facilities list
+            const fallbackFacilities = [
               "NMR 60MHz",
               "FTIR-ATR",
               "UV-Vis Spectrometer",
@@ -1083,13 +1187,20 @@ useEffect(() => {
               "AutoDock Software",
               "Modeller Software",
             ];
-            // Split into 3 columns
-            const colLength = Math.ceil(facilities.length / 4);
+            
+            // Use fetched facilities if available, otherwise use fallback
+            // Extract facility names from fetched data
+            const facilityNames = facilities.length > 0 
+              ? facilities.map(f => f.name || f.title || 'Unknown Facility')
+              : fallbackFacilities;
+            
+            // Split into 4 columns
+            const colLength = Math.ceil(facilityNames.length / 4);
             const columns = [
-              facilities.slice(0, colLength),
-              facilities.slice(colLength, colLength * 2),
-              facilities.slice(colLength * 2, colLength * 3),
-              facilities.slice(colLength * 3),
+              facilityNames.slice(0, colLength),
+              facilityNames.slice(colLength, colLength * 2),
+              facilityNames.slice(colLength * 2, colLength * 3),
+              facilityNames.slice(colLength * 3),
             ];
             return (
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full">

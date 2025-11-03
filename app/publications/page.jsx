@@ -25,7 +25,7 @@ const PublicationCard = ({ publication, index }) => {
                 </div>
               </div>
               <div className="flex-1">
-                <p className="text-blue-600 font-medium text-lg">{publication.journal}</p>
+                <p className="text-blue-600 font-medium text-lg">{publication.journal || 'Journal information not available'}</p>
               </div>
               <div className="text-right"></div>
             </div>
@@ -49,14 +49,18 @@ const PublicationCard = ({ publication, index }) => {
                 {/* Authors */}
                 <div className="mb-4">
                   <p className="text-gray-700 text-sm">
-                    {publication.authors.map((author, idx) => (
-                      <span key={idx}>
-                        <span className={author.isCorresponding ? 'font-bold' : ''}>
-                          {author.name} {author.isCorresponding ? '*' : ''}
+                    {publication.authors && Array.isArray(publication.authors) ? (
+                      publication.authors.map((author, idx) => (
+                        <span key={idx}>
+                          <span className={author.isCorresponding ? 'font-bold' : ''}>
+                            {author.name} {author.isCorresponding ? '*' : ''}
+                          </span>
+                          {idx < publication.authors.length - 1 && ', '}
                         </span>
-                        {idx < publication.authors.length - 1 && ', '}
-                      </span>
-                    ))}
+                      ))
+                    ) : (
+                      <span className="text-gray-500 italic">Authors not available</span>
+                    )}
                   </p>
                 </div>
               </div>
@@ -64,25 +68,29 @@ const PublicationCard = ({ publication, index }) => {
               {/* Images stacked vertically in mobile */}
               <div className="space-y-4 ">
                 {/* Main image - fixed size for consistency */}
-                <div className="w-full flex justify-center ">
-                  <Image
-                    src={publication.image}
-                    alt={publication.title}
-                    width={800}  // Fixed width
-                    height={500}  // Fixed height for 16:10 ratio
-                    className="object-cover bg-red-500 rounded"
-                  />
-                </div>
+                {publication.image && (
+                  <div className="w-full flex justify-center ">
+                    <Image
+                      src={publication.image}
+                      alt={publication.title || 'Publication'}
+                      width={800}  // Fixed width
+                      height={500}  // Fixed height for 16:10 ratio
+                      className="object-cover bg-red-500 rounded"
+                    />
+                  </div>
+                )}
                 {/* Research image below - centered and fixed size */}
-                <div className="w-full flex justify-center">
-                  <Image
-                    src={publication.researchImage}
-                    alt={publication.title}
-                    width={300}  // Smaller fixed width
-                    height={200}  // Fixed height for consistency
-                    className="object-cover rounded border"
-                  />
-                </div>
+                {publication.researchImage && (
+                  <div className="w-full flex justify-center">
+                    <Image
+                      src={publication.researchImage}
+                      alt={publication.title || 'Research'}
+                      width={300}  // Smaller fixed width
+                      height={200}  // Fixed height for consistency
+                      className="object-cover rounded border"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -105,40 +113,48 @@ const PublicationCard = ({ publication, index }) => {
                     {/* Authors */}
                     <div className="mb-3">
                       <p className="text-gray-700 text-sm">
-                        {publication.authors.map((author, idx) => (
-                          <span key={idx}>
-                            <span className={author.isCorresponding ? 'font-bold' : ''}>
-                              {author.name} {author.isCorresponding ? '*' : ''}
+                        {publication.authors && Array.isArray(publication.authors) ? (
+                          publication.authors.map((author, idx) => (
+                            <span key={idx}>
+                              <span className={author.isCorresponding ? 'font-bold' : ''}>
+                                {author.name} {author.isCorresponding ? '*' : ''}
+                              </span>
+                              {idx < publication.authors.length - 1 && ', '}
                             </span>
-                            {idx < publication.authors.length - 1 && ', '}
-                          </span>
-                        ))}
+                          ))
+                        ) : (
+                          <span className="text-gray-500 italic">Authors not available</span>
+                        )}
                       </p>
                     </div>
                   </div>
                   {/* Image below main content - fixed size */}
-                  <div className="w-full flex justify-center mt-4">
-                    <Image
-                      src={publication.image}
-                      alt={publication.title}
-                      width={800}  // Fixed width
-                      height={400}  // Fixed height
-                      className="object-cover rounded border"
-                    />
-                  </div>
+                  {publication.image && (
+                    <div className="w-full flex justify-center mt-4">
+                      <Image
+                        src={publication.image}
+                        alt={publication.title || 'Publication'}
+                        width={800}  // Fixed width
+                        height={400}  // Fixed height
+                        className="object-cover rounded border"
+                      />
+                    </div>
+                  )}
                 </div>
                 {/* Right 25%: Research image - fixed size and centered */}
-                <div className="w-1/4 flex items-center justify-center">
-                  <div className="bg-gray-100 rounded border p-2 flex justify-center">
-                    <Image
-                      src={publication.researchImage}
-                      alt={publication.title}
-                      width={200}  // Fixed width
-                      height={150}  // Fixed height
-                      className="object-cover rounded"
-                    />
+                {publication.researchImage && (
+                  <div className="w-1/4 flex items-center justify-center">
+                    <div className="bg-gray-100 rounded border p-2 flex justify-center">
+                      <Image
+                        src={publication.researchImage}
+                        alt={publication.title || 'Research'}
+                        width={200}  // Fixed width
+                        height={150}  // Fixed height
+                        className="object-cover rounded"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -149,9 +165,37 @@ const PublicationCard = ({ publication, index }) => {
 };
 const page = () => {
   const [publications, setPublications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch publications from API
   useEffect(() => {
-    const data = [
+    setLoading(true);
+    fetch('/api/publications')
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(errData => {
+            console.warn('Publications API returned error:', errData);
+            return [];
+          }).catch(() => []);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setPublications(data);
+        } else {
+          setPublications([]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Using fallback publications due to API error:', err);
+        setPublications([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Fallback publications data
+  const fallbackPublications = [
     {
       id: 1,
       title: "Visible-Light-Mediated Copper(I)-Catalyzed Regiospecific Amino-Hydroxylation and Amino-Alkoxylation of Vinyl Arenes",
@@ -410,8 +454,10 @@ const page = () => {
       link: ''
     },
   ];
-    setPublications(data);
-  }, []);
+
+  // Choose which data to display: fetched or fallback
+  const displayPublications = (publications && publications.length > 0) ? publications : fallbackPublications;
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 relative z-10">
           
@@ -434,9 +480,9 @@ const page = () => {
 
           {/* Publications List - Academic Format */}
           <div className="space-y-6">
-            {publications.map((publication, index) => (
+            {displayPublications.map((publication, index) => (
               <PublicationCard
-                key={publication.id}
+                key={publication.$id || publication.id || index}
                 publication={publication}
                 index={index}
               />

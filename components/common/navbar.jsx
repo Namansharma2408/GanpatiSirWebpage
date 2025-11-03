@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 const navItems = [
   { id: 'home', label: 'Home', path: '/' },
   { id: 'team', label: 'Team', path: '/team' },
@@ -19,7 +20,16 @@ const Navbar = () => {
       {/* desktop code */}
       <div className='hidden xl:flex fixed left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg z-[9999] w-[100vw] '>
         <div className="flex items-center justify-between px-8 py-3 w-full ">
-          <div className="flex items-center">
+          <div className="flex items-center gap-4">
+            {/* Logo */}
+            <div className="relative w-24 h-24 rounded-full overflow-hidden scale-150 ">
+              <Image
+                src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762190240/GDlogo_ago63w.png"
+                alt="Ganpathy Research Group Logo"
+                fill
+                className="object-cover"
+              />
+            </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
                 Ganpathy Research Group
@@ -40,8 +50,30 @@ const Navbar = () => {
       </div>
 
       {/* mobile part */}
+      {/* Mobile top bar with logo and title */}
+      <div className="xl:hidden fixed top-0 left-0 right-0 z-[9998] backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-lg px-4 py-3">
+        <div className="flex items-center gap-3">
+          {/* Logo */}
+          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white shadow-md flex-shrink-0">
+            <Image
+              src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762190240/GDlogo_ago63w.png"
+              alt="Ganpathy Research Group Logo"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h1 className="text-base font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight truncate">
+              Ganpathy Research Group
+            </h1>
+            <p className="text-xs text-gray-600 font-medium truncate">Department of Chemistry</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu button */}
       <button
-        className="xl:hidden fixed top-6 right-6 z-[10000] p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
+        className="xl:hidden fixed top-2 right-6 z-[10000] p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
         onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label="Open navigation menu"
       >
@@ -60,7 +92,18 @@ const Navbar = () => {
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-6 py-6 border-b border-white/20">
-            <span className="text-lg font-bold text-gray-700">Navigation</span>
+            <div className="flex items-center gap-3">
+              {/* Logo */}
+              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white shadow-md">
+                <Image
+                  src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762190240/GDlogo_ago63w.png"
+                  alt="Ganpathy Research Group Logo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-lg font-bold text-gray-700">Navigation</span>
+            </div>
             <button
               className="p-2 rounded-full backdrop-blur-sm bg-white/20 hover:bg-white/30 text-gray-600 border border-white/30 transition-all"
               onClick={() => setSidebarOpen(false)}

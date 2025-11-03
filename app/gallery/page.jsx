@@ -4,9 +4,46 @@ import Image from 'next/image'
 import Masonry from 'react-masonry-css'
 
 const Page = () => {
-  const images = Array(16).fill({ src: '/neeraj.webp' })
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const heightClasses = ['h-32', 'h-48', 'h-64', 'h-80']
+  // Fetch gallery images from API
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/gallery")
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(errData => {
+            console.warn("Gallery API returned error:", errData);
+            return [];
+          }).catch(() => []);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setImages(data);
+        } else {
+          // Use fallback if no data
+          setImages([]);
+        }
+      })
+      .catch((error) => {
+        console.warn("Using fallback gallery data due to API error");
+        setImages([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // Fallback data
+  const fallbackImages = Array(16).fill({ src: '/neeraj.webp', alt: 'Gallery Image' });
+
+  // Use fetched data or fallback
+  const displayImages = images.length > 0 ? images : fallbackImages;
+
+  const heightClasses = ['h-64', 'h-80']
 
   const breakpointColumnsObj = {
     default: 4,
@@ -20,8 +57,10 @@ const Page = () => {
   const [selectedImage, setSelectedImage] = useState(null)
 
   useEffect(() => {
-    setRandomHeights(images.map(() => heightClasses[Math.floor(Math.random() * heightClasses.length)]))
-  }, [])
+    if (displayImages.length > 0) {
+      setRandomHeights(displayImages.map(() => heightClasses[Math.floor(Math.random() * heightClasses.length)]))
+    }
+  }, [images.length]) // Only re-run when the number of images changes
 
   const openLightbox = (index) => {
     setSelectedImage(index)
@@ -42,26 +81,34 @@ const Page = () => {
           Explore the memories and milestones of our research journey through this curated collection of images.
         </p>
       </div>
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {randomHeights.length > 0 && images.map((img, idx) => (
-          <div 
-            key={idx} 
-            className={`relative w-full ${randomHeights[idx]} overflow-hidden rounded-lg mb-4 cursor-pointer hover:opacity-90 transition-opacity`}
-            onClick={() => openLightbox(idx)}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt || 'Image'}
-              fill
-              className="object-cover"
-            />
-          </div>
-        ))}
-      </Masonry>
+
+      {loading ? (
+        <div className="text-center py-16">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700"></div>
+          <p className="mt-4 text-gray-600">Loading gallery...</p>
+        </div>
+      ) : (
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {randomHeights.length > 0 && displayImages.map((img, idx) => (
+            <div 
+              key={img.$id || img.id || idx} 
+              className={`relative w-full ${randomHeights[idx]} overflow-hidden rounded-lg mb-4 cursor-pointer hover:opacity-90 transition-opacity`}
+              onClick={() => openLightbox(idx)}
+            >
+              <Image
+                src={img.src || img.image || '/neeraj.webp'}
+                alt={img.alt || img.title || 'Gallery Image'}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </Masonry>
+      )}
 
       {/* Lightbox Modal */}
       {selectedImage !== null && (
@@ -99,8 +146,8 @@ const Page = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={images[selectedImage].src}
-                alt={images[selectedImage].alt || 'Image'}
+                src={displayImages[selectedImage].src || displayImages[selectedImage].image || '/neeraj.webp'}
+                alt={displayImages[selectedImage].alt || displayImages[selectedImage].title || 'Gallery Image'}
                 fill
                 className="object-contain"
               />

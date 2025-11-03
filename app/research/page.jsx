@@ -1,35 +1,67 @@
+'use client'
 import React from 'react'
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 const page = () => {
-  const researchAreas = [
-    {
-      id: 1,
-      title: "Photocatalysis",
-      description: "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles.",
-      features: ["Synthetic Methodology", "Drug Discovery", "Reaction Mechanisms", "Molecular Design"],
-      image: "/neeraj.webp",
-      gradient: "from-gray-300 to-gray-400",
-      shadow: "shadow-lg shadow-gray-300/50"
-    },
-    {
-      id: 2,
-      title: "Electrocatalysis",
-      description: "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications.",
-      features: ["Green Chemistry", "Sustainable Processes", "Catalyst Design", "Industrial Applications"],
-      image: "/neeraj.webp",
-      gradient: "from-gray-400 to-gray-500",
-      shadow: "shadow-lg shadow-gray-400/50"
-    },
-    {
-      id: 3,
-      title: "Total Synthesis and Natural Products",
-      description: "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
-      features: ["Natural Products", "Complex Molecules", "Synthetic Routes", "Method Development"],
-      image: "/neeraj.webp",
-      gradient: "from-gray-200 to-gray-300",
-      shadow: "shadow-lg shadow-gray-200/50"
-    },
-  ];
+  // const researchAreas = [
+  //   {
+  //     id: 1,
+  //     title: "Photocatalysis",
+  //     description: "Developing novel photocatalytic systems for sustainable organic synthesis using visible light-responsive catalysts and green chemistry principles.",
+  //     features: ["Synthetic Methodology", "Drug Discovery", "Reaction Mechanisms", "Molecular Design"],
+  //     image: "/neeraj.webp",
+  //     gradient: "from-gray-300 to-gray-400",
+  //     shadow: "shadow-lg shadow-gray-300/50"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Electrocatalysis",
+  //     description: "Advancing electrocatalytic methodologies for efficient chemical transformations and energy conversion applications.",
+  //     features: ["Green Chemistry", "Sustainable Processes", "Catalyst Design", "Industrial Applications"],
+  //     image: "/neeraj.webp",
+  //     gradient: "from-gray-400 to-gray-500",
+  //     shadow: "shadow-lg shadow-gray-400/50"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Total Synthesis and Natural Products",
+  //     description: "Exploring innovative strategies for the total synthesis of complex natural products and the development of new synthetic methodologies.",
+  //     features: ["Natural Products", "Complex Molecules", "Synthetic Routes", "Method Development"],
+  //     image: "/neeraj.webp",
+  //     gradient: "from-gray-200 to-gray-300",
+  //     shadow: "shadow-lg shadow-gray-200/50"
+  //   },
+  // ];
+
+  const [researchAreas, setresearchAreas] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/api/researchintrest")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch research areas`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Ensure data is an array before setting state
+        if (Array.isArray(data)) {
+          setresearchAreas(data);
+        } else {
+          console.error("API response is not an array:", data);
+          setresearchAreas([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching research areas:", error.message);
+        setresearchAreas([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
@@ -44,10 +76,20 @@ const page = () => {
       </div>
       {/* Research Areas Zigzag */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
-        {researchAreas.map((area, index) => (
+        {loading ? (
+          <div className="text-center py-16">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700"></div>
+            <p className="mt-4 text-gray-600">Loading research areas...</p>
+          </div>
+        ) : researchAreas.length === 0 ? (
+          <div className="text-center py-16">
+            <p className="text-gray-600 text-lg">No research areas available at the moment.</p>
+          </div>
+        ) : (
+          researchAreas.map((area, index) => (
 
           <div
-            key={area.id}
+            key={area.$id || area.id || `research-area-${index}`}
             className={`flex flex-col lg:flex-row items-center gap-8 mb-16 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
               } h-[50vh] min-h-[400px]`}
           >
@@ -62,15 +104,16 @@ const page = () => {
 
               {/* Features Grid */}
               <div className="grid grid-cols-2 gap-4 mb-6">
-                {area.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center space-x-3">
+                {Array.isArray(area.features) && area.features.map((feature, idx) => (
+                  <div key={`${area.id}-feature-${idx}`} className="flex items-center space-x-3">
                     <div className="w-3 h-3 rounded-full bg-gray-400"></div>
                     <span className="text-gray-700 font-medium">{feature}</span>
                   </div>
                 ))}
               </div>
 
-              <button className="bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-500 transition-colors duration-300 w-fit shadow-lg shadow-gray-400/50">
+              <button className="bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-500 transition-colors duration-300 w-fit shadow-lg shadow-gray-400/50"
+              >
                 Learn More
               </button>
             </div>
@@ -107,7 +150,8 @@ const page = () => {
             </div>
           </div>
 
-        ))}
+        ))
+        )}
       </div>
 
 

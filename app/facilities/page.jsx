@@ -1,5 +1,5 @@
 'use client'
-import React,{useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 const FacilityCard = ({ facility, index }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -61,9 +61,8 @@ const FacilityCard = ({ facility, index }) => {
           {facility.image && (
             <div className="relative h-48 overflow-hidden rounded-xl mb-4">
               <Image 
-                src={"/neeraj.webp" || facility.image} 
+                src={facility.image || "/neeraj.webp"} 
                 alt={facility.name}
-                effect="blur"
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 fill
               />
@@ -88,7 +87,38 @@ const FacilityCard = ({ facility, index }) => {
   );
 };
 const page = () => {
-  const facilities = [
+  const [facilities, setFacilities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch facilities from API
+  useEffect(() => {
+    setLoading(true);
+    fetch('/api/facilities')
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(errData => {
+            console.warn('Facilities API returned error:', errData);
+            return [];
+          }).catch(() => []);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setFacilities(data);
+        } else {
+          setFacilities([]);
+        }
+      })
+      .catch((err) => {
+        console.warn('Using fallback facilities due to API error');
+        setFacilities([]);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Fallback facilities (moved from static list)
+  const fallbackFacilities = [
     // Analytical Instruments
     {
       id: 1,
@@ -265,9 +295,9 @@ const page = () => {
         </div>
         {/* Facilities Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 ">
-          {facilities.map((facility, index) => (
+          {((facilities && facilities.length > 0) ? facilities : fallbackFacilities).map((facility, index) => (
             <FacilityCard
-              key={facility.id}
+              key={facility.$id || facility.id || index}
               facility={facility}
               index={index}
             />
