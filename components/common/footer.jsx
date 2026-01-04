@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="relative  text-black w-full">
+    <footer className="relative  text-black w-full ">
       {/* Glass morphism overlay */}
       <div className="absolute inset-0 backdrop-blur-xl bg-slate-300/50"></div>
 

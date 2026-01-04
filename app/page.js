@@ -868,109 +868,127 @@ export default function Home() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+    // Wait for DOM to be ready and images to load
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
 
-      mm.add(
-        {
-          // Desktop
-          isDesktop: "(min-width: 768px)",
-          // Mobile
-          isMobile: "(max-width: 767px)",
-        },
-        (context) => {
-          const { isDesktop } = context.conditions;
-          const c = containerRef.current;
-          const s = sliderRef.current;
+        mm.add(
+          {
+            // Desktop
+            isDesktop: "(min-width: 768px)",
+            // Mobile
+            isMobile: "(max-width: 767px)",
+          },
+          (context) => {
+            const { isDesktop } = context.conditions;
+            const c = containerRef.current;
+            const s = sliderRef.current;
 
-          if (!c || !s) return;
+            if (!c || !s) return;
 
-          const wrappers = Array.from(s.children);
-          if (wrappers.length === 0) return;
+            const wrappers = Array.from(s.children);
+            if (wrappers.length === 0) return;
 
-          // Reset inline styles to get accurate measurements
-          s.style.width = "";
-          gsap.set(s, { clearProps: "x" });
+            // Reset inline styles to get accurate measurements
+            s.style.width = "";
+            gsap.set(s, { clearProps: "x" });
 
-          // Force a reflow to ensure measurements are accurate
-          void s.offsetWidth;
+            // Force a reflow to ensure measurements are accurate
+            void s.offsetWidth;
 
-          const rect = wrappers[0].getBoundingClientRect();
-          const gap =
-            wrappers.length > 1
-              ? wrappers[1].getBoundingClientRect().left - rect.right
-              : 0;
+            const rect = wrappers[0].getBoundingClientRect();
+            const gap =
+              wrappers.length > 1
+                ? wrappers[1].getBoundingClientRect().left - rect.right
+                : 0;
 
-          const totalWidth =
-            rect.width * wrappers.length + gap * (wrappers.length - 1);
-          const containerWidth = c.offsetWidth;
+            const totalWidth =
+              rect.width * wrappers.length + gap * (wrappers.length - 1);
+            const containerWidth = c.offsetWidth;
 
-          // Only animate if content overflows
-          if (totalWidth <= containerWidth) return;
+            // Only animate if content overflows
+            if (totalWidth <= containerWidth) return;
 
-          s.style.width = `${totalWidth}px`;
+            s.style.width = `${totalWidth}px`;
 
-          if (isDesktop) {
-            // Desktop: Start from right side
-            gsap.set(s, { x: containerWidth });
-            const endX = -(totalWidth - containerWidth / 2 - rect.width / 2);
-            gsap.to(s, {
-              x: endX,
-              ease: "none",
-              scrollTrigger: {
-                trigger: c,
-                start: "top top",
-                end: "bottom top",
-                scrub: 3,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-            });
-          } else {
-            // Mobile: Start from left edge
-            gsap.set(s, { x: 0 });
-            const distance = totalWidth - containerWidth;
+            // Calculate scroll distance based on content width
+            const scrollDistance = totalWidth + containerWidth;
 
-            gsap.to(s, {
-              x: -distance,
-              ease: "none",
-              scrollTrigger: {
-                trigger: c,
-                start: "top top",
-                end: "bottom top",
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-            });
+            if (isDesktop) {
+              // Desktop: Start from right side
+              gsap.set(s, { x: containerWidth });
+              const endX = -totalWidth;
+              gsap.to(s, {
+                x: endX,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: c,
+                  start: "top top",
+                  end: () => `+=${scrollDistance}`,
+                  scrub: 1,
+                  pin: true,
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true,
+                },
+              });
+            } else {
+              // Mobile: Start from left edge
+              gsap.set(s, { x: 0 });
+              const distance = totalWidth - containerWidth;
+
+              gsap.to(s, {
+                x: -distance,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: c,
+                  start: "top top",
+                  end: () => `+=${distance + containerWidth}`,
+                  scrub: 1,
+                  pin: true,
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true,
+                },
+              });
+            }
           }
-        }
-      );
-    }, containerRef);
+        );
+      }, containerRef);
+
+      // Store ctx for cleanup
+      containerRef.current._gsapCtx = ctx;
+    }, 100);
 
     return () => {
-      ctx.revert();
+      clearTimeout(timer);
+      if (containerRef.current?._gsapCtx) {
+        containerRef.current._gsapCtx.revert();
+      }
     };
   }, [arr]);
 
   const el = useRef(null);
 
-useEffect(() => {
-  if (!el.current) return;
+  useEffect(() => {
+    if (!el.current) return;
 
-  gsap.to(el.current, {
-    opacity: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: "#trigger",
-      start: "top top",
-      end: "bottom top",
-      scrub: 1,
-    },
-  });
-}, []);
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      gsap.to(el.current, {
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#trigger",
+          start: "top bottom",
+          end: "top center",
+          scrub: 1,
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div>
@@ -1106,10 +1124,10 @@ useEffect(() => {
           </button>
         </div>
       </div>
-      <div ref={containerRef} className="relative z-50 ">
-        <div ref={el} className="sticky top-8 z-30 bg-gradient-to-b from-white/90 to-transparent backdrop-blur-sm py-16">
-          <div className="container mx-auto px-4 py-8 ">
-            <div className="flex flex-col text-center max-w-4xl mx-auto align-bottom">
+      <div ref={containerRef} className="relative z-50">
+        <div ref={el} className="sticky top-0 z-30 bg-gradient-to-b from-white/95 via-white/80 to-transparent backdrop-blur-sm pt-8 pb-4 md:pt-16 md:pb-8">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col text-center max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
                 Our Team
               </h2>
@@ -1121,10 +1139,10 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="h-screen overflow-hidden relative">
+        <div className="h-screen overflow-hidden relative flex items-center">
           <div
             ref={sliderRef}
-            className="absolute top-1/2 -translate-y-1/2 flex items-center space-x-6 md:space-x-12"
+            className="flex items-center gap-6 md:gap-12 pl-4"
             style={{ willChange: "transform", height: "auto" }}
           >
             {arr.map((student, index) =>

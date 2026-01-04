@@ -42,16 +42,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        {loading?<LoadingScreen />:(
+        {loading ? (
+          <LoadingScreen />
+        ) : (
           <>
             <Navbar />
 
-            {children}
-            <footer className="">
-              <Footer />
-            </footer>
+            {/* main content grows to push footer to bottom */}
+            <main className="flex-grow">
+              {children}
+            </main>
+
+            {/* footer sits at the bottom */}
+            <Footer />
           </>
         )}
       </body>
