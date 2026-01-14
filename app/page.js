@@ -277,7 +277,7 @@ const Landingbackground = () => {
 const GlassEffectBg = () => {
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full z-1"
+      className="absolute top-0 left-0 w-full h-screen z-1"
       style={{
         background: "rgba(255,255,255,0.65)",
         boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
@@ -870,7 +870,7 @@ export default function Home() {
         <GlassEffectBg />
       </div>
       <div
-        className="w-full h-full flex items-center justify-center py-10 md:py-20 relative z-10"
+        className="w-full h-full  flex items-center justify-center py-10 md:py-20 relative z-10"
         style={{ minHeight: "100vh" }}
       >
         <div className="container mx-auto px-4 md:px-8 flex flex-col items-center justify-center max-w-6xl relative z-20">
@@ -893,7 +893,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50 ">
         {/* Header Section */}
         <div className="text-center mb-16 max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold italic mb-6 bg-linear-to-r from-purple-700 to-blue-800 bg-clip-text text-transparent">
@@ -943,7 +943,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50 bg-gray-100">
         {/* Header Section */}
         <div className="text-center mb-12 max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
@@ -997,7 +997,7 @@ export default function Home() {
       </div>
       
       {/* Team Section with Swiper Slider */}
-      <div className="relative z-50  py-16 lg:py-24">
+      <div className="relative z-50  py-16 lg:py-24 ">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16 px-4">
           <div className="max-w-4xl mx-auto">
@@ -1061,7 +1061,7 @@ export default function Home() {
         </div>
       </div>
       
-      <div id="trigger" className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50 ">
+      <div id="trigger" className="w-full  flex flex-col items-center  py-16 px-4 relative z-50 bg-gray-100">
         {/* Header Section */}
         <div className="text-center mb-12 max-w-4xl">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
@@ -1073,7 +1073,7 @@ export default function Home() {
           </p>
         </div>
         {/* Facilities Card */}
-        <div className="w-full max-w-4xl mx-auto  backdrop-blur-lg rounded-2xl shadow-xl border border-white/30 p-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl mx-auto   p-8 flex flex-col items-center">
           {(() => {
             // Fallback facilities list
             const fallbackFacilities = [
@@ -1128,13 +1128,13 @@ export default function Home() {
               facilityNames.slice(colLength * 3),
             ];
             return (
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-64 w-full">
                 {columns.map((col, colIdx) => (
                   <ul key={colIdx} className="space-y-3">
                     {col.map((facility, idx) => (
                       <li
                         key={facility + idx}
-                        className="text-lg text-gray-800 font-medium flex items-center"
+                        className="text-2xl text-gray-800 font-medium flex items-center"
                       >
                         <span className="mr-2 text-purple-900 text-xl">
                           &bull;
