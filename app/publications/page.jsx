@@ -19,7 +19,7 @@ const PublicationCard = ({ publication, index }) => {
           <style>{`.georgia-font * { font-family: Georgia, serif !important; }`}</style>
           <div className="bg-blue-50 border-b border-blue-100 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
                   <span className="text-blue-600 text-sm">📄</span>
                 </div>
@@ -463,7 +463,7 @@ const page = () => {
           
           {/* Header Section - Academic Style */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
               Publications
             </h1>
             <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">

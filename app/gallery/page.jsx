@@ -74,7 +74,7 @@ const Page = () => {
     <div>
       <div className='h-32'/>
       <div className="text-center mb-12 z-20 relative">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent ">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent ">
           Gallery
         </h1>
         <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">

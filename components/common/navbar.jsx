@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <div>
       {/* desktop code */}
-      <div className='hidden xl:flex fixed left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg z-[9999] w-[100vw] '>
+      <div className='hidden xl:flex fixed left-1/2 transform -translate-x-1/2 backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg z-9999 w-screen '>
         <div className="flex items-center justify-between px-8 py-3 w-full ">
           <div className="flex items-center gap-4">
             {/* Logo */}
@@ -31,7 +31,7 @@ const Navbar = () => {
               />
             </div>
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-2xl font-bold bg-linear-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight">
                 Ganpathy Research Group
               </h1>
               <p className="text-sm text-gray-600 font-medium">Department  of Chemistry</p>
@@ -45,16 +45,16 @@ const Navbar = () => {
               {item.label}
             </button>
           ))}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-200/0 via-blue-200/0 to-indigo-200/0 hover:from-purple-200/5 hover:via-blue-200/5 hover:to-indigo-200/5 transition-all duration-500 pointer-events-none rounded-full"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-purple-200/0 via-blue-200/0 to-indigo-200/0 hover:from-purple-200/5 hover:via-blue-200/5 hover:to-indigo-200/5 transition-all duration-500 pointer-events-none rounded-full"></div>
         </div>
       </div>
 
       {/* mobile part */}
       {/* Mobile top bar with logo and title */}
-      <div className="xl:hidden fixed top-0 left-0 right-0 z-[9998] backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-lg px-4 py-3">
+      <div className="xl:hidden fixed top-0 left-0 right-0 z-9998 backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-lg px-4 py-3">
         <div className="flex items-center gap-3">
           {/* Logo */}
-          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white shadow-md flex-shrink-0">
+          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white shadow-md shrink-0">
             <Image
               src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762190240/GDlogo_ago63w.png"
               alt="Ganpathy Research Group Logo"
@@ -63,7 +63,7 @@ const Navbar = () => {
             />
           </div>
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-bold bg-gradient-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight truncate">
+            <h1 className="text-base font-bold bg-linear-to-r from-gray-800 via-purple-700 to-blue-700 bg-clip-text text-transparent leading-tight truncate">
               Ganpathy Research Group
             </h1>
             <p className="text-xs text-gray-600 font-medium truncate">Department of Chemistry</p>
@@ -73,7 +73,7 @@ const Navbar = () => {
 
       {/* Mobile menu button */}
       <button
-        className="xl:hidden fixed top-2 right-6 z-[10000] p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
+        className="xl:hidden fixed top-2 right-6 z-10000 p-3 rounded-full backdrop-blur-xl bg-white/10 border border-white/20 shadow-lg hover:bg-white/20 transition-all"
         onClick={() => setSidebarOpen(!sidebarOpen)}
         aria-label="Open navigation menu"
       >
@@ -83,7 +83,7 @@ const Navbar = () => {
       </button>
 
       {/* Mobile Sidebar - Glass Morphism Style */}
-      <div className={`xl:hidden fixed inset-0 z-[9999] transition-all duration-300 ${sidebarOpen ? 'bg-black/20 pointer-events-auto' : 'pointer-events-none bg-transparent'}`}
+      <div className={`xl:hidden fixed inset-0 z-9999 transition-all duration-300 ${sidebarOpen ? 'bg-black/20 pointer-events-auto' : 'pointer-events-none bg-transparent'}`}
         style={{ backdropFilter: sidebarOpen ? 'blur(4px)' : 'none' }}
         onClick={() => setSidebarOpen(false)}
       >
@@ -131,7 +131,7 @@ const Navbar = () => {
           </nav>
 
           {/* Subtle glow effect in sidebar */}
-          <div className="absolute inset-0 bg-gradient-to-b from-purple-200/5 via-blue-200/5 to-indigo-200/5 pointer-events-none rounded-r-lg"></div>
+          <div className="absolute inset-0 bg-linear-to-b from-purple-200/5 via-blue-200/5 to-indigo-200/5 pointer-events-none rounded-r-lg"></div>
         </aside>
       </div>
     </div>

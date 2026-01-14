@@ -62,3 +62,12 @@ html {
 .my-masonry-grid_column > div {
   margin-bottom: 16px;
 }
+
+/* Swiper continuous autoplay - ensures smooth infinite scroll */
+.team-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+.team-swiper .swiper-slide {
+  width: auto !important;
+}

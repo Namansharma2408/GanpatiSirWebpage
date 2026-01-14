@@ -67,7 +67,7 @@ const page = () => {
       {/* Hero Section */}
       <div className='h-32'/>
       <div className="text-center mb-12 z-20 relative">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent mt-12">
           Research Areas
         </h1>
         <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
@@ -91,7 +91,7 @@ const page = () => {
           <div
             key={area.$id || area.id || `research-area-${index}`}
             className={`flex flex-col lg:flex-row items-center gap-8 mb-16 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } h-[50vh] min-h-[400px]`}
+              } h-[50vh] min-h-100`}
           >
             {/* Content Section */}
             <div className="flex-1 flex flex-col justify-center p-8">
@@ -122,7 +122,7 @@ const page = () => {
             <div className="flex-1 relative h-full">
               <div className="relative h-full group">
                 {/* Background glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-gray-200/20 to-gray-300/20 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
+                <div className="absolute -inset-4 bg-linear-to-r from-gray-200/20 to-gray-300/20 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
 
                 {/* Main image container */}
 

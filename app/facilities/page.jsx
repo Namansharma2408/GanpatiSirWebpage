@@ -13,7 +13,7 @@ const FacilityCard = ({ facility, index }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background glow effect */}
-      <div className={`absolute left-0 right-0 top-0 bottom-0 max-w-md mx-auto bg-gradient-to-r ${facility.gradientFrom} ${facility.gradientTo} rounded-2xl blur-sm transition-opacity duration-500 ${
+      <div className={`absolute left-0 right-0 top-0 bottom-0 max-w-md mx-auto bg-linear-to-r ${facility.gradientFrom} ${facility.gradientTo} rounded-2xl blur-sm transition-opacity duration-500 ${
         isHovered ? 'opacity-70' : 'opacity-0'
       }`}></div>
       
@@ -23,7 +23,7 @@ const FacilityCard = ({ facility, index }) => {
           {/* Header with icon and title */}
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center space-x-4">
-              <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${facility.gradientFrom} ${facility.gradientTo} flex items-center justify-center text-white text-2xl shadow-lg`}>
+              <div className={`w-14 h-14 rounded-full bg-linear-to-br ${facility.gradientFrom} ${facility.gradientTo} flex items-center justify-center text-white text-2xl shadow-lg`}>
                 {facility.icon}
               </div>
               <div>
@@ -50,7 +50,7 @@ const FacilityCard = ({ facility, index }) => {
             <div className="grid grid-cols-1 gap-2">
               {facility.features.slice(0, 3).map((feature, idx) => (
                 <div key={idx} className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-linear-to-r from-purple-400 to-blue-400 rounded-full"></div>
                   <span className="text-sm text-gray-600">{feature}</span>
                 </div>
               ))}
@@ -67,7 +67,7 @@ const FacilityCard = ({ facility, index }) => {
                 fill
               />
               {/* Image overlay with gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent`}></div>
+              <div className={`absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent`}></div>
               {/* Status badge on image */}
               <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${
                 facility.status === 'Available' 
@@ -286,7 +286,7 @@ const page = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12 z-20 relative">
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent ">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent ">
             Research Facilities
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">

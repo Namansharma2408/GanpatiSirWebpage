@@ -59,7 +59,7 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-black">Contact</h4>
             <div className="space-y-3 text-sm text-gray-900">
               <div className="flex items-start space-x-2">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="mt-1 flex-shrink-0">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" className="mt-1 shrink-0">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                 </svg>
                 <span>IIT Bhilai, Kutelabhata<br />Bhilai, Chhattisgarh 490002</span>
@@ -86,7 +86,7 @@ const Footer = () => {
           
         </div>
         <div className='mt-4 flex justify-center items-center space-x-5'>
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-400 to-gray-400"></div>
+          <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-400 to-gray-400"></div>
 
           <h4 className="text-center px-4">
             Made by Naman Sharma
@@ -110,7 +110,7 @@ const Footer = () => {
 
             </a>
           </div>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent via-gray-400 to-gray-400"></div>
+          <div className="flex-1 h-px bg-linear-to-l from-transparent via-gray-400 to-gray-400"></div>
           <div>
 
           </div>

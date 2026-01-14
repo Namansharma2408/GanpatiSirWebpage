@@ -1,14 +1,15 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect, useRef, useMemo } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useEffect, useMemo } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 const PublicationCard = ({ publication, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className={`relative transition-all duration-200 flex-shrink-0 w-full ${
+      className={`relative transition-all duration-200 shrink-0 w-full ${
         isHovered ? "shadow-lg" : "shadow-md"
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -20,7 +21,7 @@ const PublicationCard = ({ publication, index }) => {
           {/* Publication Header */}
           <div className="bg-blue-50 border-b border-blue-100 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
                   <span className="text-blue-600 text-sm">📄</span>
                 </div>
@@ -194,9 +195,9 @@ const StudentCard = ({ member }) => {
 
   return (
     <div
-      className={` relative group transition-all duration-300 transform ${
-        isHovered ? "scale-105 -translate-y-2" : "scale-100"
-      }`}
+      className={`relative group transition-all duration-300 transform ${
+        isHovered ? "scale-105 -translate-y-2 z-50" : "scale-100 z-0"
+      } `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -210,44 +211,43 @@ const StudentCard = ({ member }) => {
       ></div>
 
       {/* Main card */}
-      <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 w-72 md:w-80">
+      <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 w-72 sm:w-80 md:w-85 lg:w-95 xl:w-105 2xl:w-120">
         {/* Profile Image */}
-        <div className="relative h-48 md:h-60 overflow-hidden flex items-center justify-center">
+        <div className="relative h-56 sm:h-64 md:h-72 lg:h-80 xl:h-85 2xl:h-95 overflow-hidden flex items-center justify-center">
           <Image
             src={member?.image || "/neeraj.webp"}
             alt={member.name}
             effect="blur"
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-            width="320"
-            height="240"
+            width="480"
+            height="380"
           />
           {/* Image overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent"></div>
           {/* Role badge */}
           <div
-            className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-white/90 text-gray-700 border border-white/50`}
+            className={`absolute top-3 right-3 px-2 py-1 lg:px-3 lg:py-1.5 rounded-full text-xs lg:text-sm font-medium backdrop-blur-sm bg-white/90 text-gray-700 border border-white/50`}
           >
             {member.role}
           </div>
         </div>
 
-        <div className="p-4 md:p-5">
+        <div className="p-4 md:p-5 lg:p-6 xl:p-8">
           {/* Header */}
           <div className="text-center mb-3 md:mb-4">
-            <h3 className="text-base md:text-lg font-bold text-gray-800 mb-1">
+            <h3 className="text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-800 mb-1">
               {member.name}
             </h3>
-            <p className="text-xs md:text-sm text-gray-600 font-medium">
+            <p className="text-xs md:text-sm lg:text-base text-gray-600 font-medium">
               {member.position}
             </p>
           </div>
           {/* Contact Links - Compact */}
           <div className="flex justify-center space-x-3 pt-3 border-t border-gray-200/50">
             {member.email && (
-              <button className="p-2 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
+              <button className="p-2 lg:p-3 rounded-full bg-blue-100/60 hover:bg-blue-200 text-blue-600 transition-colors">
                 <svg
-                  width="14"
-                  height="14"
+                  className="w-4 h-4 lg:w-5 lg:h-5"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -861,191 +861,6 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [teamMembers]
   );
-
-  const containerRef = useRef(null);
-  const sliderRef = useRef(null);
-
-  // Horizontal scroll animation with detailed logging
-  useEffect(() => {
-    console.log('=== GSAP Animation Setup Started ===');
-    console.log('Time:', new Date().toISOString());
-    
-    // Skip if SSR
-    if (typeof window === 'undefined') {
-      console.log('❌ Skipped: Running on server (SSR)');
-      return;
-    }
-
-    // Check data
-    console.log('Team members array:', arr);
-    console.log('Array length:', arr?.length);
-    
-    if (!arr || arr.length <= 1) {
-      console.log('❌ Skipped: No data or only 1 member');
-      return;
-    }
-
-    console.log('✅ Data check passed');
-    gsap.registerPlugin(ScrollTrigger);
-    console.log('✅ ScrollTrigger registered');
-
-    let ctx = null;
-
-    const setupAnimation = () => {
-      console.log('\n--- setupAnimation() called ---');
-      
-      const container = containerRef.current;
-      const slider = sliderRef.current;
-
-      // Check refs
-      console.log('Container ref:', container);
-      console.log('Slider ref:', slider);
-      
-      if (!container) {
-        console.log('❌ Container ref is null');
-        return;
-      }
-      if (!slider) {
-        console.log('❌ Slider ref is null');
-        return;
-      }
-      console.log('✅ Both refs are valid');
-
-      // Check children
-      const cards = slider.querySelectorAll('.student-card');
-      console.log('Student cards found:', cards.length);
-      
-      if (cards.length === 0) {
-        console.log('❌ No student cards found');
-        return;
-      }
-      console.log('✅ Cards found:', cards.length);
-
-      // Kill existing ScrollTriggers
-      const existingTriggers = ScrollTrigger.getAll();
-      console.log('Existing ScrollTriggers:', existingTriggers.length);
-      existingTriggers.forEach((trigger, i) => {
-        console.log(`  Trigger ${i}:`, trigger.vars?.trigger);
-      });
-
-      // Measurements
-      const firstCard = cards[0];
-      const cardRect = firstCard.getBoundingClientRect();
-      const cardWidth = firstCard.offsetWidth;
-      const containerRect = container.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-      
-      console.log('\n--- Measurements ---');
-      console.log('Card getBoundingClientRect:', cardRect);
-      console.log('Card offsetWidth:', cardWidth);
-      console.log('Container getBoundingClientRect:', containerRect);
-      console.log('Container offsetWidth:', container.offsetWidth);
-      console.log('Container offsetHeight:', container.offsetHeight);
-      console.log('Viewport width:', viewportWidth);
-      console.log('Viewport height:', viewportHeight);
-
-      if (cardWidth === 0) {
-        console.log('❌ Card width is 0 - cards not rendered yet');
-        return;
-      }
-
-      // Gap calculation
-      const gap = viewportWidth >= 768 ? 48 : 24;
-      const totalCards = cards.length;
-      const totalWidth = (cardWidth * totalCards) + (gap * (totalCards - 1));
-      
-      console.log('\n--- Calculations ---');
-      console.log('Gap:', gap);
-      console.log('Total cards:', totalCards);
-      console.log('Total content width:', totalWidth);
-      console.log('Viewport width:', viewportWidth);
-      console.log('Content overflow:', totalWidth - viewportWidth);
-
-      if (totalWidth <= viewportWidth) {
-        console.log('❌ No animation needed - content fits in viewport');
-        return;
-      }
-
-      // Set slider width
-      slider.style.width = `${totalWidth}px`;
-      console.log('✅ Slider width set to:', totalWidth);
-
-      // Animation values
-      const startX = viewportWidth; // Start from right edge
-      const endX = -(totalWidth - viewportWidth + 100); // End with last card visible + padding
-      const scrollDistance = totalWidth + viewportWidth;
-      
-      console.log('\n--- Animation Values ---');
-      console.log('Start X:', startX);
-      console.log('End X:', endX);
-      console.log('Scroll distance:', scrollDistance);
-      console.log('Container top from viewport:', containerRect.top);
-
-      // Create context
-      ctx = gsap.context(() => {
-        console.log('\n--- Creating GSAP Animation ---');
-        
-        // Set initial position
-        gsap.set(slider, { x: startX });
-        console.log('✅ Initial position set to:', startX);
-
-        // Create animation
-        const tween = gsap.to(slider, {
-          x: endX,
-          ease: "none",
-          scrollTrigger: {
-            trigger: container,
-            start: "top top",
-            end: `+=${scrollDistance}`,
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-            markers: true, // ENABLE MARKERS FOR DEBUGGING
-            onEnter: () => console.log('🟢 ScrollTrigger: onEnter'),
-            onLeave: () => console.log('🔴 ScrollTrigger: onLeave'),
-            onEnterBack: () => console.log('🟡 ScrollTrigger: onEnterBack'),
-            onLeaveBack: () => console.log('🟠 ScrollTrigger: onLeaveBack'),
-            onUpdate: (self) => {
-              // Log progress every 10%
-              const progress = Math.round(self.progress * 100);
-              if (progress % 10 === 0) {
-                console.log(`📊 Progress: ${progress}%, Direction: ${self.direction > 0 ? 'down' : 'up'}`);
-              }
-            },
-            onRefresh: () => console.log('🔄 ScrollTrigger: onRefresh'),
-            onToggle: (self) => console.log('🔀 ScrollTrigger: onToggle, isActive:', self.isActive),
-          }
-        });
-
-        console.log('✅ Animation created');
-        console.log('Tween:', tween);
-        console.log('ScrollTrigger:', tween.scrollTrigger);
-        
-      }, container);
-
-      console.log('✅ GSAP context created');
-      console.log('=== Animation Setup Complete ===\n');
-    };
-
-    // Delay to ensure DOM is ready
-    console.log('⏳ Waiting 500ms for DOM...');
-    const timeoutId = setTimeout(() => {
-      console.log('⏰ Timeout fired, calling setupAnimation()');
-      setupAnimation();
-    }, 500);
-
-    // Cleanup
-    return () => {
-      console.log('🧹 Cleanup called');
-      clearTimeout(timeoutId);
-      if (ctx) {
-        ctx.revert();
-        console.log('✅ GSAP context reverted');
-      }
-    };
-  }, [arr]);
-
   return (
     <div>
       <div className="absolute inset-0 z-5 pointer-events-none">
@@ -1063,7 +878,7 @@ export default function Home() {
             {/* Glassy Card Container */}
             <div className="relative w-full max-w-4xl z-40">
               <div className="relative z-50">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent relative z-60 leading-tight px-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-center bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent relative z-60 leading-tight px-4">
                   Welcome to The Chemical Synthesis Group
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-gray-800 mb-1 font-medium text-center relative z-60 mt-4 px-4">
@@ -1073,7 +888,7 @@ export default function Home() {
               </div>
 
               {/* Subtle glow effect around card */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-200/20 via-blue-200/20 to-indigo-200/20 rounded-2xl blur-sm z-10"></div>
+              <div className="absolute -inset-1 bg-linear-to-r from-purple-200/20 via-blue-200/20 to-indigo-200/20 rounded-2xl blur-sm z-10"></div>
             </div>
           </div>
         </div>
@@ -1081,7 +896,7 @@ export default function Home() {
       <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50">
         {/* Header Section */}
         <div className="text-center mb-16 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold italic mb-6 bg-gradient-to-r from-purple-700 to-blue-800 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold italic mb-6 bg-linear-to-r from-purple-700 to-blue-800 bg-clip-text text-transparent">
             Research Interests
           </h2>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
@@ -1106,7 +921,7 @@ export default function Home() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     fill
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent"></div>
                 </div>
                 <div className="relative top-4 left-4 right-4">
                   <h3 className="text-2xl font-bold text-black drop-shadow-lg">
@@ -1122,7 +937,7 @@ export default function Home() {
                 </div>
 
                 {/* Subtle glow effect on hover */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-200/0 via-blue-200/0 to-indigo-200/0 group-hover:from-purple-200/20 group-hover:via-blue-200/20 group-hover:to-indigo-200/20 rounded-2xl blur-sm -z-10 transition-all duration-500"></div>
+                <div className="absolute -inset-1 bg-linear-to-r from-purple-200/0 via-blue-200/0 to-indigo-200/0 group-hover:from-purple-200/20 group-hover:via-blue-200/20 group-hover:to-indigo-200/20 rounded-2xl blur-sm -z-10 transition-all duration-500"></div>
               </div>
             </div>
           ))}
@@ -1131,7 +946,7 @@ export default function Home() {
       <div className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50">
         {/* Header Section */}
         <div className="text-center mb-12 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
             Recent Publications
           </h2>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
@@ -1175,50 +990,81 @@ export default function Home() {
 
         {/* View All Publications Button */}
         <div className="mt-12">
-          <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
+          <button className="px-8 py-3 bg-linear-to-r from-purple-600 to-blue-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
             View All Publications
           </button>
         </div>
       </div>
-      <div ref={containerRef} className="relative z-50 bg-white/50">
-        {/* Header - Fixed at top during scroll */}
-        <div className="sticky top-0 z-30 bg-gradient-to-b from-white via-white/95 to-transparent pt-8 pb-12 md:pt-16 md:pb-16">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-col text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
-                Our Team
-              </h2>
-              <p className="text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed">
-                Meet our dedicated team of researchers and students working on
-                cutting-edge projects in organic synthesis and catalysis.
-              </p>
-            </div>
+      
+      {/* Team Section with Swiper Slider */}
+      <div className="relative z-50  py-16 lg:py-24">
+        {/* Header */}
+        <div className="text-center mb-12 lg:mb-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
+              Our Team
+            </h2>
+            <p className="text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed">
+              Meet our dedicated team of researchers and students working on
+              cutting-edge projects in organic synthesis and catalysis.
+            </p>
           </div>
         </div>
 
-        {/* Cards container - will be pinned and scrolled horizontally */}
-        <div className="h-[70vh] overflow-hidden flex items-center">
-          <div
-            ref={sliderRef}
-            className="flex items-center gap-6 md:gap-12 px-8"
-          >
-            {arr.map((student, index) =>
-              student.id === 1 ? null : (
-                <div
-                  key={student.$id || student.id || index}
-                  className="student-card flex-shrink-0"
-                >
-                  <StudentCard member={student} />
-                </div>
-              )
-            )}
+        {/* Swiper Slider with fade edges */}
+        <div className="relative  w-full py-12">
+          {/* Left fade overlay */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 xl:w-40 bg-linear-to-r from-white/90 via-white/50 to-transparent z-10 pointer-events-none"></div>
+          {/* Right fade overlay */}
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 xl:w-40 bg-linear-to-l from-white/90 via-white/50 to-transparent z-10 pointer-events-none"></div>
+          
+          <div className="px-4 md:px-8 lg:px-12 ">
+            <Swiper
+              modules={[Autoplay]}
+              spaceBetween={30}
+              slidesPerView="auto"
+              centeredSlides={false}
+              loop={true}
+              speed={6000}
+              allowTouchMove={true}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+              }}
+              breakpoints={{
+                640: {
+                  spaceBetween: 40,
+                },
+                1024: {
+                  spaceBetween: 50,
+                },
+                1400: {
+                  spaceBetween: 60,
+                },
+              }}
+              className="team-swiper py-24 "
+            >
+              {[...arr, ...arr, ...arr, ...arr].map((student, index) =>
+                student.id === 1 ? null : (
+                  <SwiperSlide 
+                    key={`${student.$id || student.id}-${index}`}
+                    style={{ width: 'auto' }}
+                    className="flex items-center justify-center  my-12"
+                  >
+                    <StudentCard member={student} />
+                  </SwiperSlide>
+                )
+              )}
+            </Swiper>
           </div>
         </div>
       </div>
-      <div id="trigger" className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50">
+      
+      <div id="trigger" className="w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 relative z-50 ">
         {/* Header Section */}
         <div className="text-center mb-12 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
             All Facilities
           </h2>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">

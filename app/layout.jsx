@@ -51,7 +51,7 @@ export default function RootLayout({ children }) {
             <Navbar />
 
             {/* main content grows to push footer to bottom */}
-            <main className="flex-grow">
+            <main className="grow">
               {children}
             </main>
 
