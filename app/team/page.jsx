@@ -13,7 +13,7 @@ const ProfessorCard = ({ member }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background glow effect */}
-      <div className={`absolute -inset-2 bg-gradient-to-r ${member.gradientFrom} ${member.gradientTo} rounded-3xl blur-lg transition-opacity duration-500 ${isHovered ? 'opacity-30' : 'opacity-0'
+      <div className={`absolute -inset-2 bg-linear-to-r ${member.gradientFrom} ${member.gradientTo} rounded-3xl blur-lg transition-opacity duration-500 ${isHovered ? 'opacity-30' : 'opacity-0'
         }`}></div>
 
       {/* Main card */}
@@ -30,7 +30,7 @@ const ProfessorCard = ({ member }) => {
                 fill
               />
               {/* Image overlay with gradient */}
-              <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-r from-transparent via-transparent to-black/10"></div>
+              <div className="absolute inset-0 bg-linear-to-r md:bg-linear-to-r from-transparent via-transparent to-black/10"></div>
 
             </div>
           </div>
@@ -56,7 +56,7 @@ const ProfessorCard = ({ member }) => {
                 <h3 className="text-lg font-semibold text-gray-800 mb-3">Expertise</h3>
                 <div className="flex flex-wrap gap-2">
                   {member.skills.map((skill, idx) => (
-                    <span key={`${member.id || member.$id}-skill-${idx}`} className="px-3 py-1 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 text-sm font-medium rounded-full border border-purple-200">
+                    <span key={`${member.id || member.$id}-skill-${idx}`} className="px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 text-purple-700 text-sm font-medium rounded-full border border-purple-200">
                       {skill}
                     </span>
                   ))}
@@ -95,13 +95,13 @@ const StudentCard = ({ member }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Background glow effect */}
-      <div className={`absolute -inset-1 bg-gradient-to-r ${member.gradientFrom} ${member.gradientTo} rounded-2xl blur-sm transition-opacity duration-500 ${isHovered ? 'opacity-40' : 'opacity-0'
+      <div className={`absolute -inset-1 bg-linear-to-r ${member.gradientFrom} ${member.gradientTo} rounded-2xl blur-sm transition-opacity duration-500 ${isHovered ? 'opacity-40' : 'opacity-0'
         }`}></div>
 
       {/* Main card */}
       <div className="relative backdrop-blur-xl bg-white/80 border border-white/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500">
         {/* Profile Image */}
-        <div className="relative h-[480px] overflow-hidden flex items-center justify-center">
+        <div className="relative h-120 overflow-hidden flex items-center justify-center">
           <Image
             src={member.image || "/neeraj.webp"}
             alt={member.name || "Student"}
@@ -111,7 +111,7 @@ const StudentCard = ({ member }) => {
             height={480}
           />
           {/* Image overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent"></div>
           {/* Role badge */}
           <div className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-white/90 text-gray-700 border border-white/50`}>
             {member.role || "Student"}
@@ -399,14 +399,14 @@ const page = () => {
     <div className="max-w-full h-1/2 mx-auto ">
       <div className='h-32' />
       {/* Header Section */}
-      <div className="relative text-center mb-16 overflow-hidden rounded-3xl h-[50vh] min-h-[400px]">
+      <div className="relative text-center mb-16 overflow-hidden rounded-3xl h-[50vh] min-h-100">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full"
           style={{ backgroundImage: "url('https://res.cloudinary.com/dicnppgsn/image/upload/v1762179128/team_s2tb1t.jpg')" }}
         ></div>
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/20 to-black/60"></div>
         {/* Content */}
         <div className="relative z-10 flex items-center justify-center h-full ">
           <div>
@@ -432,7 +432,7 @@ const page = () => {
             <div className="mb-20">
               <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold text-gray-800 mb-3">Principal Investigator</h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-600 mx-auto rounded-full"></div>
+                <div className="w-24 h-1 bg-linear-to-r from-purple-500 to-blue-600 mx-auto rounded-full"></div>
               </div>
               <ProfessorCard member={displayPI} />
             </div>
@@ -443,7 +443,7 @@ const page = () => {
             <div className="mb-20">
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold text-gray-800 mb-3">PhD Students</h2>
-                <div className="w-16 h-1 bg-gradient-to-r from-green-500 to-teal-600 mx-auto rounded-full"></div>
+                <div className="w-16 h-1 bg-linear-to-r from-green-500 to-teal-600 mx-auto rounded-full"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {displayStudents.map((student) => (
@@ -460,7 +460,7 @@ const page = () => {
             <div className="mb-20">
               <div className="text-center mb-10">
                 <h2 className="text-2xl font-bold text-gray-800 mb-3">MSc Students</h2>
-                <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded-full"></div>
+                <div className="w-16 h-1 bg-linear-to-r from-orange-500 to-red-600 mx-auto rounded-full"></div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {displayStudents.map((student) => (

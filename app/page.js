@@ -202,7 +202,7 @@ const StudentCard = ({ member }) => {
     >
       {/* Background glow effect */}
       <div
-        className={`absolute -inset-1 bg-gradient-to-r ${member.gradientFrom} ${
+        className={`absolute -inset-1 bg-linear-to-r ${member.gradientFrom} ${
           member.gradientTo
         } rounded-2xl blur-sm transition-opacity duration-500 ${
           isHovered ? "opacity-40" : "opacity-0"
@@ -222,7 +222,7 @@ const StudentCard = ({ member }) => {
             height="240"
           />
           {/* Image overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent"></div>
           {/* Role badge */}
           <div
             className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm bg-white/90 text-gray-700 border border-white/50`}
@@ -263,7 +263,7 @@ const StudentCard = ({ member }) => {
 };
 const Landingbackground = () => {
   return (
-    <div className="w-full h-[100vh] bg-slate-200 overflow-hidden">
+    <div className="w-full h-screen bg-slate-200 overflow-hidden">
       <Image
         src="https://res.cloudinary.com/dicnppgsn/image/upload/v1762187983/landingBackground_rzvvvq.jpg"
         alt="Landing Background"
@@ -865,130 +865,186 @@ export default function Home() {
   const containerRef = useRef(null);
   const sliderRef = useRef(null);
 
+  // Horizontal scroll animation with detailed logging
   useEffect(() => {
+    console.log('=== GSAP Animation Setup Started ===');
+    console.log('Time:', new Date().toISOString());
+    
+    // Skip if SSR
+    if (typeof window === 'undefined') {
+      console.log('❌ Skipped: Running on server (SSR)');
+      return;
+    }
+
+    // Check data
+    console.log('Team members array:', arr);
+    console.log('Array length:', arr?.length);
+    
+    if (!arr || arr.length <= 1) {
+      console.log('❌ Skipped: No data or only 1 member');
+      return;
+    }
+
+    console.log('✅ Data check passed');
     gsap.registerPlugin(ScrollTrigger);
+    console.log('✅ ScrollTrigger registered');
 
-    // Wait for DOM to be ready and images to load
-    const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        const mm = gsap.matchMedia();
+    let ctx = null;
 
-        mm.add(
-          {
-            // Desktop
-            isDesktop: "(min-width: 768px)",
-            // Mobile
-            isMobile: "(max-width: 767px)",
-          },
-          (context) => {
-            const { isDesktop } = context.conditions;
-            const c = containerRef.current;
-            const s = sliderRef.current;
+    const setupAnimation = () => {
+      console.log('\n--- setupAnimation() called ---');
+      
+      const container = containerRef.current;
+      const slider = sliderRef.current;
 
-            if (!c || !s) return;
+      // Check refs
+      console.log('Container ref:', container);
+      console.log('Slider ref:', slider);
+      
+      if (!container) {
+        console.log('❌ Container ref is null');
+        return;
+      }
+      if (!slider) {
+        console.log('❌ Slider ref is null');
+        return;
+      }
+      console.log('✅ Both refs are valid');
 
-            const wrappers = Array.from(s.children);
-            if (wrappers.length === 0) return;
+      // Check children
+      const cards = slider.querySelectorAll('.student-card');
+      console.log('Student cards found:', cards.length);
+      
+      if (cards.length === 0) {
+        console.log('❌ No student cards found');
+        return;
+      }
+      console.log('✅ Cards found:', cards.length);
 
-            // Reset inline styles to get accurate measurements
-            s.style.width = "";
-            gsap.set(s, { clearProps: "x" });
+      // Kill existing ScrollTriggers
+      const existingTriggers = ScrollTrigger.getAll();
+      console.log('Existing ScrollTriggers:', existingTriggers.length);
+      existingTriggers.forEach((trigger, i) => {
+        console.log(`  Trigger ${i}:`, trigger.vars?.trigger);
+      });
 
-            // Force a reflow to ensure measurements are accurate
-            void s.offsetWidth;
+      // Measurements
+      const firstCard = cards[0];
+      const cardRect = firstCard.getBoundingClientRect();
+      const cardWidth = firstCard.offsetWidth;
+      const containerRect = container.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      
+      console.log('\n--- Measurements ---');
+      console.log('Card getBoundingClientRect:', cardRect);
+      console.log('Card offsetWidth:', cardWidth);
+      console.log('Container getBoundingClientRect:', containerRect);
+      console.log('Container offsetWidth:', container.offsetWidth);
+      console.log('Container offsetHeight:', container.offsetHeight);
+      console.log('Viewport width:', viewportWidth);
+      console.log('Viewport height:', viewportHeight);
 
-            const rect = wrappers[0].getBoundingClientRect();
-            const gap =
-              wrappers.length > 1
-                ? wrappers[1].getBoundingClientRect().left - rect.right
-                : 0;
+      if (cardWidth === 0) {
+        console.log('❌ Card width is 0 - cards not rendered yet');
+        return;
+      }
 
-            const totalWidth =
-              rect.width * wrappers.length + gap * (wrappers.length - 1);
-            const containerWidth = c.offsetWidth;
+      // Gap calculation
+      const gap = viewportWidth >= 768 ? 48 : 24;
+      const totalCards = cards.length;
+      const totalWidth = (cardWidth * totalCards) + (gap * (totalCards - 1));
+      
+      console.log('\n--- Calculations ---');
+      console.log('Gap:', gap);
+      console.log('Total cards:', totalCards);
+      console.log('Total content width:', totalWidth);
+      console.log('Viewport width:', viewportWidth);
+      console.log('Content overflow:', totalWidth - viewportWidth);
 
-            // Only animate if content overflows
-            if (totalWidth <= containerWidth) return;
+      if (totalWidth <= viewportWidth) {
+        console.log('❌ No animation needed - content fits in viewport');
+        return;
+      }
 
-            s.style.width = `${totalWidth}px`;
+      // Set slider width
+      slider.style.width = `${totalWidth}px`;
+      console.log('✅ Slider width set to:', totalWidth);
 
-            // Calculate scroll distance based on content width
-            const scrollDistance = totalWidth + containerWidth;
+      // Animation values
+      const startX = viewportWidth; // Start from right edge
+      const endX = -(totalWidth - viewportWidth + 100); // End with last card visible + padding
+      const scrollDistance = totalWidth + viewportWidth;
+      
+      console.log('\n--- Animation Values ---');
+      console.log('Start X:', startX);
+      console.log('End X:', endX);
+      console.log('Scroll distance:', scrollDistance);
+      console.log('Container top from viewport:', containerRect.top);
 
-            if (isDesktop) {
-              // Desktop: Start from right side
-              gsap.set(s, { x: containerWidth });
-              const endX = -totalWidth;
-              gsap.to(s, {
-                x: endX,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: c,
-                  start: "top top",
-                  end: () => `+=${scrollDistance}`,
-                  scrub: 1,
-                  pin: true,
-                  anticipatePin: 1,
-                  invalidateOnRefresh: true,
-                },
-              });
-            } else {
-              // Mobile: Start from left edge
-              gsap.set(s, { x: 0 });
-              const distance = totalWidth - containerWidth;
+      // Create context
+      ctx = gsap.context(() => {
+        console.log('\n--- Creating GSAP Animation ---');
+        
+        // Set initial position
+        gsap.set(slider, { x: startX });
+        console.log('✅ Initial position set to:', startX);
 
-              gsap.to(s, {
-                x: -distance,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: c,
-                  start: "top top",
-                  end: () => `+=${distance + containerWidth}`,
-                  scrub: 1,
-                  pin: true,
-                  anticipatePin: 1,
-                  invalidateOnRefresh: true,
-                },
-              });
-            }
+        // Create animation
+        const tween = gsap.to(slider, {
+          x: endX,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            end: `+=${scrollDistance}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            markers: true, // ENABLE MARKERS FOR DEBUGGING
+            onEnter: () => console.log('🟢 ScrollTrigger: onEnter'),
+            onLeave: () => console.log('🔴 ScrollTrigger: onLeave'),
+            onEnterBack: () => console.log('🟡 ScrollTrigger: onEnterBack'),
+            onLeaveBack: () => console.log('🟠 ScrollTrigger: onLeaveBack'),
+            onUpdate: (self) => {
+              // Log progress every 10%
+              const progress = Math.round(self.progress * 100);
+              if (progress % 10 === 0) {
+                console.log(`📊 Progress: ${progress}%, Direction: ${self.direction > 0 ? 'down' : 'up'}`);
+              }
+            },
+            onRefresh: () => console.log('🔄 ScrollTrigger: onRefresh'),
+            onToggle: (self) => console.log('🔀 ScrollTrigger: onToggle, isActive:', self.isActive),
           }
-        );
-      }, containerRef);
+        });
 
-      // Store ctx for cleanup
-      containerRef.current._gsapCtx = ctx;
-    }, 100);
+        console.log('✅ Animation created');
+        console.log('Tween:', tween);
+        console.log('ScrollTrigger:', tween.scrollTrigger);
+        
+      }, container);
 
+      console.log('✅ GSAP context created');
+      console.log('=== Animation Setup Complete ===\n');
+    };
+
+    // Delay to ensure DOM is ready
+    console.log('⏳ Waiting 500ms for DOM...');
+    const timeoutId = setTimeout(() => {
+      console.log('⏰ Timeout fired, calling setupAnimation()');
+      setupAnimation();
+    }, 500);
+
+    // Cleanup
     return () => {
-      clearTimeout(timer);
-      if (containerRef.current?._gsapCtx) {
-        containerRef.current._gsapCtx.revert();
+      console.log('🧹 Cleanup called');
+      clearTimeout(timeoutId);
+      if (ctx) {
+        ctx.revert();
+        console.log('✅ GSAP context reverted');
       }
     };
   }, [arr]);
-
-  const el = useRef(null);
-
-  useEffect(() => {
-    if (!el.current) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      gsap.to(el.current, {
-        opacity: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#trigger",
-          start: "top bottom",
-          end: "top center",
-          scrub: 1,
-        },
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div>
@@ -1124,8 +1180,9 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div ref={containerRef} className="relative z-50">
-        <div ref={el} className="sticky top-0 z-30 bg-gradient-to-b from-white/95 via-white/80 to-transparent backdrop-blur-sm pt-8 pb-4 md:pt-16 md:pb-8">
+      <div ref={containerRef} className="relative z-50 bg-white/50">
+        {/* Header - Fixed at top during scroll */}
+        <div className="sticky top-0 z-30 bg-gradient-to-b from-white via-white/95 to-transparent pt-8 pb-12 md:pt-16 md:pb-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col text-center max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
@@ -1139,17 +1196,17 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="h-screen overflow-hidden relative flex items-center">
+        {/* Cards container - will be pinned and scrolled horizontally */}
+        <div className="h-[70vh] overflow-hidden flex items-center">
           <div
             ref={sliderRef}
-            className="flex items-center gap-6 md:gap-12 pl-4"
-            style={{ willChange: "transform", height: "auto" }}
+            className="flex items-center gap-6 md:gap-12 px-8"
           >
             {arr.map((student, index) =>
               student.id === 1 ? null : (
                 <div
                   key={student.$id || student.id || index}
-                  className="student-card flex-shrink-0 w-72 md:w-80"
+                  className="student-card flex-shrink-0"
                 >
                   <StudentCard member={student} />
                 </div>
